@@ -38,7 +38,7 @@ export function SearchBar() {
                     </Select>
                 </div>
 
-                <Button className="bg-[#024E68] hover:bg-[#01394D] cursor-pointer transition-colors duration-300 ease-in-out w-full md:w-auto text-white px-8">
+                <Button className="bg-primary hover:bg-[#01394D] cursor-pointer transition-colors duration-300 ease-in-out w-full md:w-auto text-white px-8">
                     Search
                 </Button>
             </div>

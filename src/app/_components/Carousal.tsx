@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import Autoplay from 'embla-carousel-autoplay';
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
+// import Image from "next/image";
 const Carousal = () => {
     const router = useRouter()
     const handleClick = () => {
@@ -32,9 +32,11 @@ const Carousal = () => {
                 {Array.from({ length: 5 }).map((_, index) => (
                     <CarouselItem key={index} className="sm:basic-1 md:basis-1/2 lg:basis-1/3">
                         <div>
-                            <Card className="py-0 pb-2">
+                            <Card className="flex flex-col py-0 pb-2">
                                 <Link href="workspace/1" className="p-2">
-                                    <Image src='/workNest.png' alt="work-nest" fill />
+                                    <div>
+                                        <img src='/assets/images/workNest.png' className="object-contain" alt="work-nest" />
+                                    </div>
                                 </Link>
                                 <CardContent className="px-4 py-2">
                                     <div className="space-y-4 mb-2">
@@ -52,7 +54,7 @@ const Carousal = () => {
                                         <Button
                                             variant="default"
                                             onClick={handleClick}
-                                            className="bg-[#024E68] hover:bg-[#01394D] cursor-pointer transition-colors duration-300 ease-in-out"
+                                            className="bg-primary hover:bg-[#01394D] cursor-pointer transition-colors duration-300 ease-in-out"
                                         >
                                             View Details
                                         </Button>

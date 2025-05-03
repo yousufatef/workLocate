@@ -52,18 +52,8 @@ const Home = () => {
         <Heading>Featured Spaces</Heading>
         <Carousal />
       </div>
-      <div className="container mt-10">
+      <div className="container mt-10" id="services">
         <Heading>Why Choose Us</Heading>
-        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 justify-center mt-5">
-                        {advantagesList.map((advantage) => (
-                            <div className="p-5 text-center">
-                                <img src={advantage.image} alt={advantage.title} className="m-auto w-20" />
-                                <div className="m-auto w-20 text-[#006bb1]">{advantage.image}</div>
-                                <h3 className="mt-4 text-[22px] font-bold text-[#006bb1]">{advantage.title}</h3>
-                                <p className="mt-2 text-[#414042]">{advantage.description}</p>
-                            </div>
-                        ))}
-                    </div> */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center mt-">
           {advantagesList.map((advantage, index) => (
             <div
@@ -73,7 +63,7 @@ const Home = () => {
               <div className="flex justify-center items-center w-20 h-20 mx-auto rounded-full bg-[#E6F4FF] text-[#006bb1]">
                 {advantage.image}
               </div>
-              <h3 className="mt-4 text-xl font-bold text-[#024E68]">{advantage.title}</h3>
+              <h3 className="mt-4 text-xl font-bold text-primary">{advantage.title}</h3>
               <p className="mt-3 text-gray-500 leading-5">{advantage.description}</p>
             </div>
           ))}
@@ -81,7 +71,7 @@ const Home = () => {
 
 
       </div>
-      <div className="container mt-10">
+      <div className="container mt-10" id="about-us">
         <Heading>About</Heading>
         <p className="text-gray-500 leading-5">At WorkLocate, we make finding and booking your ideal coworking space simple and stress-free.
           allowing you to reserve workspaces that fit your needs—anytime, anywhere. Whether {"you're"} an entrepreneur,
