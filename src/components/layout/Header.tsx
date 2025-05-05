@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { SignInButton, UserButton, useUser } from '@clerk/nextjs';
+import { ModeToggle } from './ModeToggle';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,6 +14,7 @@ const Header = () => {
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
     const closeMenu = () => setIsMenuOpen(false);
+    const { user } = useUser()
 
     useEffect(() => {
         // Only run on client side
@@ -92,29 +95,30 @@ const Header = () => {
 
                                 <div className="flex items-center gap-4 lg:hidden">
                                     <motion.div variants={linkVariants}>
-                                        <Link href="/login" className="bg-[#ffffff] text-[#024E68] px-4 py-2 rounded-xl font-semibold" onClick={closeMenu}>
-                                            Login
-                                        </Link>
+                                        <ModeToggle />
                                     </motion.div>
                                     <motion.div variants={linkVariants}>
-                                        <Link href="/register" className="bg-[#ffffff] text-[#024E68] px-4 py-2 rounded-xl font-semibold" onClick={closeMenu}>
-                                            Sign Up
-                                        </Link>
+                                        {user ? <UserButton /> : <SignInButton />}
                                     </motion.div>
                                 </div>
                             </motion.nav>
                         )}
                     </AnimatePresence>
                     <div className="hidden lg:flex justify-center items-center space-x-4">
-                        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
-                            <Link href="/login" className="text-white font-semibold hover:text-gray-200 transition-colors">
-                                Login
-                            </Link>
-                        </motion.div>
                         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }} whileTap={{ scale: 0.95 }}>
-                            <Link href="/register" className="bg-[#ffffff] text-[#024E68] px-4 py-2 rounded-xl font-semibold">
-                                Sign Up
-                            </Link>
+                            <ModeToggle />
+                        </motion.div>
+                        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
+                            {user ? <UserButton /> : (
+                                <SignInButton mode="redirect" fallbackRedirectUrl="/login">
+                                    <button
+                                        className="bg-[#ffffff] text-[#024E68] px-4 py-2 rounded-xl font-semibold cursor-pointer"
+                                        onClick={closeMenu}
+                                    >
+                                        Login
+                                    </button>
+                                </SignInButton>
+                            )}
                         </motion.div>
                     </div>
                 </div>

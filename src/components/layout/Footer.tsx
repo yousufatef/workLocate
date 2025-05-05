@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ModeToggle } from "./ModeToggle";
 
 const Footer = () => {
     const lists = [
@@ -41,7 +40,7 @@ const Footer = () => {
                             </div>
                         ))}
                     </div>
-                    <ModeToggle />
+                    
                 </div>
             </div>
         </footer>

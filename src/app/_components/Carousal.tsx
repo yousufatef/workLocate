@@ -6,12 +6,27 @@ import { Card, CardContent } from "@/components/ui/card"
 import Autoplay from 'embla-carousel-autoplay';
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { fetchWorkspaces } from "@/lib/api";
+import { useEffect, useState } from "react";
 // import Image from "next/image";
 const Carousal = () => {
+    const [workspaces, setWorkspaces] = useState([]);
+    useEffect(() => {
+        async function loadWorkspaces() {
+            const data = await fetchWorkspaces();
+            console.log(data);
+            setWorkspaces(data);
+            console.log(workspaces);
+        }
+
+        loadWorkspaces();
+    }, []);
     const router = useRouter()
     const handleClick = () => {
         router.push('"workspace/1"');
     }
+
+
     return (
         <Carousel
             opts={{
@@ -29,7 +44,7 @@ const Carousal = () => {
             className="w-full"
         >
             <CarouselContent>
-                {Array.from({ length: 5 }).map((_, index) => (
+                {workspaces.map((item, index) => (
                     <CarouselItem key={index} className="sm:basic-1 md:basis-1/2 lg:basis-1/3">
                         <div>
                             <Card className="flex flex-col py-0 pb-2">
@@ -41,13 +56,12 @@ const Carousal = () => {
                                 <CardContent className="px-4 py-2">
                                     <div className="space-y-4 mb-2">
                                         <div className="flex items-start justify-between">
-                                            <h3 className="text-xl font-semibold">WorkNest</h3>
+                                            <h3 className="text-xl font-semibold">{item?.name}</h3>
                                         </div>
                                         <div className="text-sm text-gray-500 flex justify-between">
-                                            <p>Giza, Egypt</p>
-                                            <p className="text-gray-400 mr-[2px]">2.5 km from you</p>
+                                            <p>{item?.address}</p>
                                         </div>
-                                        <p className=" text-gray-500 leading-5">Modern workspace with Wi-Fi, ergonomic seating</p>
+                                        <p className=" text-gray-500 leading-5">{item?.description}</p>
                                     </div>
                                     <div className="flex items-center justify-between pt-2 border-t border-gray-100">
                                         <span className="text-lg font-bold">$50 / Hour</span>
