@@ -21,7 +21,7 @@ const Footer = () => {
     ];
 
     return (
-        <footer className="bg-gray-100 py-8 mt-16">
+        <footer className="bg-gray-100 py-12">
             <div className="container">
                 <div className="flex justify-center items-center">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8 flex-1">
@@ -40,7 +40,7 @@ const Footer = () => {
                             </div>
                         ))}
                     </div>
-                    
+
                 </div>
             </div>
         </footer>

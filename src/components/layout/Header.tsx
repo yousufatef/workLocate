@@ -35,7 +35,7 @@ const Header = () => {
         { path: "/", name: "Home" },
         { path: "#about-us", name: "About" },
         { path: "#services", name: "Services" },
-        { path: "contact-us", name: "Contact Us" },
+        { path: "contact", name: "Contact Us" },
     ];
 
     const mobileMenuVariants = {
