@@ -23,7 +23,7 @@ const Carousal = () => {
     }, []);
     const router = useRouter()
     const handleClick = () => {
-        router.push('"workspace/1"');
+        router.push('workspace/1');
     }
 
 
