@@ -30,7 +30,7 @@ export async function POST(request: Request) {
                             await clerk.users.updateUserMetadata(id, {
                                 publicMetadata: {
                                     userMongoId: user._id,
-                                    isAdmin: user.isAdmin,
+                                    role: user.role,
                                 },
                             });
                         } catch (error) {

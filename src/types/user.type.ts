@@ -4,5 +4,5 @@ export interface IUser {
     last_name: string | null;
     image_url: string | null;
     email_addresses: { email_address: string }[];
-    isAdmin?: "user" | "admin" | "owner";
+    role?: 'customer' | 'admin' | 'owner';
 }
