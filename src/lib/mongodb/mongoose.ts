@@ -10,7 +10,7 @@ export const connect = async () => {
     }
     try {
         await mongoose.connect(process.env.MONGODB_URI as string, {
-            dbName: "ourblog",
+            dbName: "worklocate",
             autoIndex: true,
             maxPoolSize: 10,
             serverSelectionTimeoutMS: 5000,
