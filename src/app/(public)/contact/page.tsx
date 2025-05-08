@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
 export const metadata: Metadata = {
     title: "Contact Us",
@@ -172,59 +173,55 @@ export default function ContactPage() {
 
 
             {/* FAQ Section */}
-            <div className="bg-gray-200 mb-0">
-                <div className="container mx-auto px-4 py-16 md:py-24">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
-                        <p className="text-muted-foreground max-w-2xl mx-auto">
-                            Find answers to common questions about our workspaces and services.
-                        </p>
-                    </div>
+            <div className="bg-gradient-to-b from-gray-100 to-gray-200 py-16 md:py-20">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <Accordion type="single" collapsible className="space-y-4 max-w-[600px] m-auto mb-4">
+                        <AccordionItem value="item-1" className="border border-gray-300 rounded-lg p-6 bg-primary shadow-sm hover:shadow-md transition-shadow">
+                            <AccordionTrigger className="text-2xl md:text-3xl font-bold cursor-pointer flex items-center justify-between w-full text-left gap-4">
+                                <span>Frequently Asked Questions</span>
 
-                    <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-                        <Card className="border-0 shadow-md hover:shadow-lg transition-shadow duration-300">
-                            <CardContent className="p-6">
-                                <h3 className="text-lg font-semibold mb-2 text-[#005571]">How do I book a workspace?</h3>
-                                <p className="text-muted-foreground">
-                                    You can book a workspace through our online portal or by contacting our customer service team directly
-                                    via phone or email.
-                                </p>
-                            </CardContent>
-                        </Card>
+                            </AccordionTrigger>
+                            <AccordionContent className="pt-4 text-lg text-gray-200 animate-accordion-down">
+                                Find answers to common questions about our workspaces and services. Our team has compiled the most frequent inquiries to help you get the information you need quickly.
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+                    <Accordion type="single" collapsible className="space-y-4 max-w-[600px] m-auto mb-4">
+                        <AccordionItem value="item-1" className="border border-gray-300 rounded-lg p-6 bg-primary shadow-sm hover:shadow-md transition-shadow">
+                            <AccordionTrigger className="text-2xl md:text-3xl font-bold cursor-pointer flex items-center justify-between w-full text-left gap-4">
+                                <span>Frequently Asked Questions</span>
 
-                        <Card className="border-0 shadow-md hover:shadow-lg transition-shadow duration-300">
-                            <CardContent className="p-6">
-                                <h3 className="text-lg font-semibold mb-2 text-[#005571]">What amenities are included?</h3>
-                                <p className="text-muted-foreground">
-                                    Our workspaces include high-speed internet, meeting rooms, kitchen facilities, printing services, and
-                                    24/7 access depending on your membership level.
-                                </p>
-                            </CardContent>
-                        </Card>
+                            </AccordionTrigger>
+                            <AccordionContent className="pt-4 text-lg text-gray-200 animate-accordion-down">
+                                Find answers to common questions about our workspaces and services. Our team has compiled the most frequent inquiries to help you get the information you need quickly.
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+                    <Accordion type="single" collapsible className="space-y-4 max-w-[600px] m-auto mb-4">
+                        <AccordionItem value="item-1" className="border border-gray-300 rounded-lg p-6 bg-primary shadow-sm hover:shadow-md transition-shadow">
+                            <AccordionTrigger className="text-2xl md:text-3xl font-bold cursor-pointer flex items-center justify-between w-full text-left gap-4">
+                                <span>Frequently Asked Questions</span>
 
-                        <Card className="border-0 shadow-md hover:shadow-lg transition-shadow duration-300">
-                            <CardContent className="p-6">
-                                <h3 className="text-lg font-semibold mb-2 text-[#005571]">Do you offer virtual office services?</h3>
-                                <p className="text-muted-foreground">
-                                    Yes, we offer virtual office services including mail handling, call answering, and a prestigious
-                                    business address for your company.
-                                </p>
-                            </CardContent>
-                        </Card>
+                            </AccordionTrigger>
+                            <AccordionContent className="pt-4 text-lg text-gray-200 animate-accordion-down">
+                                Find answers to common questions about our workspaces and services. Our team has compiled the most frequent inquiries to help you get the information you need quickly.
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+                    <Accordion type="single" collapsible className="space-y-4 max-w-[600px] m-auto mb-4">
+                        <AccordionItem value="item-1" className="border border-gray-300 rounded-lg p-6 bg-primary shadow-sm hover:shadow-md transition-shadow">
+                            <AccordionTrigger className="text-2xl md:text-3xl font-bold cursor-pointer flex items-center justify-between w-full text-left gap-4">
+                                <span>Frequently Asked Questions</span>
 
-                        <Card className="border-0 shadow-md hover:shadow-lg transition-shadow duration-300">
-                            <CardContent className="p-6">
-                                <h3 className="text-lg font-semibold mb-2 text-[#005571]">What is your cancellation policy?</h3>
-                                <p className="text-muted-foreground">
-                                    Our standard cancellation policy requires 30 days notice. Please contact our team for specific details
-                                    related to your membership type.
-                                </p>
-                            </CardContent>
-                        </Card>
-                    </div>
+                            </AccordionTrigger>
+                            <AccordionContent className="pt-4 text-lg text-gray-200 animate-accordion-down">
+                                Find answers to common questions about our workspaces and services. Our team has compiled the most frequent inquiries to help you get the information you need quickly.
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+               
                 </div>
             </div>
-
         </div>
     )
 }

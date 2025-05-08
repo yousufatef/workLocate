@@ -10,7 +10,13 @@ import { fetchWorkspaces } from "@/lib/api";
 import { useEffect, useState } from "react";
 // import Image from "next/image";
 const Carousal = () => {
-    const [workspaces, setWorkspaces] = useState([]);
+    interface Workspace {
+        name: string;
+        address: string;
+        description: string;
+    }
+    
+    const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
     useEffect(() => {
         async function loadWorkspaces() {
             const data = await fetchWorkspaces();

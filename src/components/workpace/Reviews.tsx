@@ -29,8 +29,8 @@ const Reviews = () => {
                             ))}
                         </div>
                         <p className="text-sm text-gray-700">
-                            "This Coworking Space is a Game-Changer! The High-Speed Internet is Reliable, the Modern Environment
-                            Makes it Perfect for Getting Work Done. Plus, The Free Coffee is a Great Bonus!"
+                            This Coworking Space is a Game-Changer! The High-Speed Internet is Reliable, the Modern Environment
+                            Makes it Perfect for Getting Work Done. Plus, The Free Coffee is a Great Bonus!
                         </p>
                     </Card>
                 ))}

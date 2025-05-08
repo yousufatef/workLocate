@@ -71,7 +71,7 @@ const Home = () => {
 
 
       </div>
-      <div className="container mt-10" id="about-us">
+      <div className="container my-10" id="about-us">
         <Heading>About</Heading>
         <p className="text-gray-500 leading-5">At WorkLocate, we make finding and booking your ideal coworking space simple and stress-free.
           allowing you to reserve workspaces that fit your needs—anytime, anywhere. Whether {"you're"} an entrepreneur,
