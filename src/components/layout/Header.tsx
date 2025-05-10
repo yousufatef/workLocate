@@ -1,130 +1,103 @@
-"use client"
-import { Menu, X } from 'lucide-react';
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
-import { SignInButton, UserButton, useUser } from '@clerk/nextjs';
-import { ModeToggle } from './ModeToggle';
+import Link from "next/link";
+import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import { Calendar, Home, Menu, Ticket } from "lucide-react";
+import { Button } from "../ui/button";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { ModeToggle } from "./ModeToggle";
+
 
 const Header = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [windowWidth, setWindowWidth] = useState(0);
-    const pathname = usePathname();
-
-    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-    const closeMenu = () => setIsMenuOpen(false);
-    const { user } = useUser()
-
-    useEffect(() => {
-        // Only run on client side
-        const handleResize = () => {
-            setWindowWidth(window.innerWidth);
-        };
-
-        // Set initial width
-        handleResize();
-
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    useEffect(() => closeMenu(), [pathname]);
-
-    const navLinks = [
-        { path: "/", name: "Home" },
-        { path: "#about-us", name: "About" },
-        { path: "#services", name: "Services" },
-        { path: "contact", name: "Contact Us" },
-    ];
-
-    const mobileMenuVariants = {
-        hidden: { opacity: 0, y: -20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.3, staggerChildren: 0.1 } },
-        exit: { opacity: 0, y: -20, transition: { duration: 0.2 } },
-    };
-
-    const linkVariants = {
-        hidden: { opacity: 0, y: -10 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
-    };
-
     return (
-        <header className="bg-[#024E68] shadow-md sticky top-0 z-50">
-            <div className="container mx-auto">
-                <div className="flex justify-between p-4">
-                    <div className="text-2xl font-bold text-white">
-                        <Link href="/" onClick={closeMenu}>
-                            <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-                                Logo
-                            </motion.span>
-                        </Link>
-                    </div>
-
-
-                    <button className="lg:hidden text-white focus:outline-none" onClick={toggleMenu} aria-label="Toggle menu">
-                        {isMenuOpen ? (
-                            <X className="h-6 w-6 cursor-pointer" />
-                        ) : (
-                            <Menu className="h-6 w-6 cursor-pointer" />
-                        )}
-                    </button>
-
-                    <AnimatePresence>
-                        {(isMenuOpen || (windowWidth > 0 && windowWidth >= 1024)) && (
-                            <motion.nav
-                                className={`z-10 justify-center flex-col max-lg:pl-[36px] gap-8 pb-8 lg:flex lg:flex-row lg:items-center lg:space-x-4 absolute lg:static bg-[#024E68] w-full lg:w-auto left-0 lg:left-auto top-16 lg:top-auto p-4 lg:p-0 ${isMenuOpen ? "flex" : "hidden lg:flex"}`}
-                                variants={mobileMenuVariants}
-                                initial="hidden"
-                                animate="visible"
-                                exit="exit"
-                            >
-                                {navLinks.map((link, index) => (
-                                    <motion.div key={index} variants={linkVariants}>
-                                        <Link href={link.path} onClick={closeMenu} className="relative block text-white font-medium lg:inline mt-2 lg:mt-0 group">
-                                            {link.name}
-                                            <motion.span
-                                                className="lg:absolute lg:bottom-[-5px] lg:left-0 lg:h-[2px] lg:bg-white block"
-                                                initial={{ width: pathname === link.path ? "100%" : "0%" }}
-                                                animate={{ width: pathname === link.path ? "100%" : "0%" }}
-                                                transition={{ duration: 0.3 }}
-                                            />
-                                        </Link>
-                                    </motion.div>
-                                ))}
-
-                                <div className="flex items-center gap-4 lg:hidden">
-                                    <motion.div variants={linkVariants}>
-                                        <ModeToggle />
-                                    </motion.div>
-                                    <motion.div variants={linkVariants}>
-                                        {user ? <UserButton /> : <SignInButton />}
-                                    </motion.div>
-                                </div>
-                            </motion.nav>
-                        )}
-                    </AnimatePresence>
-                    <div className="hidden lg:flex justify-center items-center space-x-4">
-                        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }} whileTap={{ scale: 0.95 }}>
-                            <ModeToggle />
-                        </motion.div>
-                        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
-                            {user ? <UserButton /> : (
-                                <SignInButton mode="redirect" fallbackRedirectUrl="/login">
-                                    <button
-                                        className="bg-[#ffffff] text-[#024E68] px-4 py-2 rounded-xl font-semibold cursor-pointer"
-                                        onClick={closeMenu}
+        <header className="sticky top-0 z-40 border-b bg-background">
+            <div className="container flex h-16 items-center justify-between py-4">
+                <div className="flex items-center gap-2">
+                    <Sheet>
+                        <SheetTrigger asChild>
+                            <Button variant="outline" size="icon" className="md:hidden">
+                                <Menu className="h-5 w-5" />
+                                <span className="sr-only">Toggle menu</span>
+                            </Button>
+                        </SheetTrigger>
+                        <SheetContent side="left">
+                            <div className="flex flex-col gap-2 py-4 p-6">
+                                <Link href="/" className="flex items-center gap-2 text-lg font-bold mb-12">
+                                    <span>WorkLocate</span>
+                                </Link>
+                                <nav className="flex flex-col gap-3">
+                                    <Link
+                                        href="/"
+                                        className="flex items-center gap-2 text-muted-foreground hover:text-foreground text-xl font-semibold mb-6"
                                     >
-                                        Login
-                                    </button>
-                                </SignInButton>
-                            )}
-                        </motion.div>
-                    </div>
+                                        <Home className="h-8 w-8" />
+                                        <span>Home</span>
+                                    </Link>
+                                    <Link
+                                        href="/about"
+                                        className="flex items-center gap-2 text-muted-foreground hover:text-foreground text-xl font-semibold mb-6"
+                                    >
+                                        <Calendar className="h-8 w-8" />
+                                        <span>About</span>
+                                    </Link>
+                                    <Link
+                                        href="/services"
+                                        className="flex items-center gap-2 text-muted-foreground hover:text-foreground text-xl font-semibold mb-6"
+                                    >
+                                        <Ticket className="h-8 w-8" />
+                                        <span>Services</span>
+                                    </Link>
+                                    <Link
+                                        href="/contact"
+                                        className="flex items-center gap-2 text-muted-foreground hover:text-foreground text-xl font-semibold mb-6"
+                                    >
+                                        <Ticket className="h-8 w-8" />
+                                        <span>Contact US</span>
+                                    </Link>
+                                </nav>
+                            </div>
+                        </SheetContent>
+                    </Sheet>
+                    <Link href="/" className="flex items-center gap-2 text-lg font-bold">
+                        <span>WorkLocate</span>
+                    </Link>
+                </div>
+                <nav className="hidden md:flex items-center gap-6">
+                    <Link href="/" className="text-sm font-medium text-muted-foreground hover:text-foreground">
+                        Home
+                    </Link>
+                    <Link
+                        href="/about"
+                        className="text-sm font-medium text-muted-foreground hover:text-foreground"
+                    >
+                        About
+                    </Link>
+                    <Link
+                        href="/services"
+                        className="text-sm font-medium text-muted-foreground hover:text-foreground"
+                    >
+                        Services
+                    </Link>
+
+                    <Link
+                        href="/contact"
+                        className="text-sm font-medium text-muted-foreground hover:text-foreground"
+                    >
+                        Contact US
+                    </Link>
+                </nav>
+                <div className="flex items-center gap-4">
+                    <ModeToggle />
+                    <SignedOut>
+                        <Button asChild size={"lg"}>
+                            <Link href="/sign-in">Sign In</Link>
+                        </Button>
+                    </SignedOut>
+                    <SignedIn>
+                        <UserButton />
+                    </SignedIn>
                 </div>
             </div>
         </header>
-    );
-};
+    )
+}
 
-export default Header;
+export default Header

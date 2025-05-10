@@ -23,7 +23,7 @@ const Carousal = () => {
             const data = await fetchWorkspaces();
             console.log(data);
             setWorkspaces(data);
-            console.log(workspaces);
+            console.log(data);
         }
 
         loadWorkspaces();
