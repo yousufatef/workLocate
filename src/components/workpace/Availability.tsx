@@ -14,7 +14,7 @@ const Availability = () => {
                     <Select defaultValue="fri-28-feb">
                         <SelectTrigger className="w-full md:w-[180px]">
                             <div className="flex items-center gap-2">
-                                <span className="text-[#024E68]">
+                                <span className="text-primary">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         width="16"
@@ -46,7 +46,7 @@ const Availability = () => {
                     <Select defaultValue="9am-2pm">
                         <SelectTrigger className="w-full md:w-[180px]">
                             <div className="flex items-center gap-2">
-                                <span className="text-[#024E68]">
+                                <span className="text-primary">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         width="16"
@@ -72,7 +72,7 @@ const Availability = () => {
                         </SelectContent>
                     </Select>
                 </div>
-                <Button className="w-full md:w-auto bg-[#024E68] hover:bg-[#01394D] cursor-pointer transition-colors duration-300 ease-in-out"
+                <Button className="w-full md:w-auto bg-primary cursor-pointer transition-colors duration-300 ease-in-out"
                     onClick={() => router.push("/booking")}>Book</Button>
             </div>
         </div>

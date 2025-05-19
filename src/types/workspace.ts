@@ -1,6 +1,6 @@
 
 export interface IWorkspace {
-    id: string,
+    _id: string,
     name: string,
     location: string,
     address: string,
@@ -11,3 +11,4 @@ export interface IWorkspace {
     ownerId: string,
     reviews: string[]
 }
+

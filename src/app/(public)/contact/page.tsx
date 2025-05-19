@@ -17,14 +17,14 @@ export default function ContactPage() {
     return (
         <div className="flex flex-col mb-0">
             {/* Hero Section with decorative elements */}
-            <div className="relative bg-gradient-to-r from-[#004058] to-[#005571] text-white py-20 overflow-hidden">
+            <div className="relative  text-primary py-20 overflow-hidden">
                 <div className="absolute inset-0 overflow-hidden">
                     <div className="absolute -top-24 -left-24 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
                     <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
                 </div>
                 <div className="container mx-auto px-4 text-center relative z-10">
                     <h1 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">Get in Touch</h1>
-                    <p className="text-lg md:text-xl max-w-2xl mx-auto text-white/80 leading-relaxed">
+                    <p className="text-lg md:text-xl max-w-2xl mx-auto  leading-relaxed">
                         {"We're here to help you find your ideal workspace. Reach out to our team with any questions."}
                     </p>
 
@@ -106,7 +106,7 @@ export default function ContactPage() {
 
                                 <Button
                                     type="submit"
-                                    className="w-full h-12 bg-[#005571] hover:bg-[#004058] transition-all duration-300 text-white font-medium rounded-lg"
+                                    className="w-full h-12 bg-primary transition-all cursor-pointer duration-300 text-primary-foreground text-[16px] font-bold rounded-lg"
                                 >
                                     Send Message
                                 </Button>
@@ -173,53 +173,53 @@ export default function ContactPage() {
 
 
             {/* FAQ Section */}
-            <div className="bg-gradient-to-b from-gray-100 to-gray-200 py-16 md:py-20">
+            <div className="py-16 md:py-20">
                 <div className="container mx-auto px-4 max-w-4xl">
-                    <Accordion type="single" collapsible className="space-y-4 max-w-[600px] m-auto mb-4">
-                        <AccordionItem value="item-1" className="border border-gray-300 rounded-lg p-6 bg-primary shadow-sm hover:shadow-md transition-shadow">
-                            <AccordionTrigger className="text-2xl md:text-3xl font-bold cursor-pointer flex items-center justify-between w-full text-left gap-4">
+                    <Accordion type="single" collapsible className="max-w-[600px] m-auto mb-4">
+                        <AccordionItem value="item-1" className="border border-gray-300 rounded-lg p-4 bg-primary shadow-sm hover:shadow-md transition-shadow">
+                            <AccordionTrigger className="text-xl md:text-2xl font-bold cursor-pointer flex items-center justify-between w-full text-left gap-4">
                                 <span>Frequently Asked Questions</span>
 
                             </AccordionTrigger>
-                            <AccordionContent className="pt-4 text-lg text-gray-200 animate-accordion-down">
+                            <AccordionContent className="text-primary-foreground animate-accordion-down">
                                 Find answers to common questions about our workspaces and services. Our team has compiled the most frequent inquiries to help you get the information you need quickly.
                             </AccordionContent>
                         </AccordionItem>
                     </Accordion>
-                    <Accordion type="single" collapsible className="space-y-4 max-w-[600px] m-auto mb-4">
-                        <AccordionItem value="item-1" className="border border-gray-300 rounded-lg p-6 bg-primary shadow-sm hover:shadow-md transition-shadow">
-                            <AccordionTrigger className="text-2xl md:text-3xl font-bold cursor-pointer flex items-center justify-between w-full text-left gap-4">
+                    <Accordion type="single" collapsible className="max-w-[600px] m-auto mb-4">
+                        <AccordionItem value="item-1" className="border border-gray-300 rounded-lg p-4 bg-primary shadow-sm hover:shadow-md transition-shadow">
+                            <AccordionTrigger className="text-xl md:text-2xl font-bold cursor-pointer flex items-center justify-between w-full text-left gap-4">
                                 <span>Frequently Asked Questions</span>
 
                             </AccordionTrigger>
-                            <AccordionContent className="pt-4 text-lg text-gray-200 animate-accordion-down">
+                            <AccordionContent className="text-primary-foreground animate-accordion-down">
                                 Find answers to common questions about our workspaces and services. Our team has compiled the most frequent inquiries to help you get the information you need quickly.
                             </AccordionContent>
                         </AccordionItem>
                     </Accordion>
-                    <Accordion type="single" collapsible className="space-y-4 max-w-[600px] m-auto mb-4">
-                        <AccordionItem value="item-1" className="border border-gray-300 rounded-lg p-6 bg-primary shadow-sm hover:shadow-md transition-shadow">
-                            <AccordionTrigger className="text-2xl md:text-3xl font-bold cursor-pointer flex items-center justify-between w-full text-left gap-4">
+                    <Accordion type="single" collapsible className="max-w-[600px] m-auto mb-4">
+                        <AccordionItem value="item-1" className="border border-gray-300 rounded-lg p-4 bg-primary shadow-sm hover:shadow-md transition-shadow">
+                            <AccordionTrigger className="text-xl md:text-2xl font-bold cursor-pointer flex items-center justify-between w-full text-left gap-4">
                                 <span>Frequently Asked Questions</span>
 
                             </AccordionTrigger>
-                            <AccordionContent className="pt-4 text-lg text-gray-200 animate-accordion-down">
+                            <AccordionContent className="text-primary-foreground animate-accordion-down">
                                 Find answers to common questions about our workspaces and services. Our team has compiled the most frequent inquiries to help you get the information you need quickly.
                             </AccordionContent>
                         </AccordionItem>
                     </Accordion>
-                    <Accordion type="single" collapsible className="space-y-4 max-w-[600px] m-auto mb-4">
-                        <AccordionItem value="item-1" className="border border-gray-300 rounded-lg p-6 bg-primary shadow-sm hover:shadow-md transition-shadow">
-                            <AccordionTrigger className="text-2xl md:text-3xl font-bold cursor-pointer flex items-center justify-between w-full text-left gap-4">
+                    <Accordion type="single" collapsible className="max-w-[600px] m-auto mb-4">
+                        <AccordionItem value="item-1" className="border border-gray-300 rounded-lg p-4 bg-primary shadow-sm hover:shadow-md transition-shadow">
+                            <AccordionTrigger className="text-xl md:text-2xl font-bold cursor-pointer flex items-center justify-between w-full text-left gap-4">
                                 <span>Frequently Asked Questions</span>
 
                             </AccordionTrigger>
-                            <AccordionContent className="pt-4 text-lg text-gray-200 animate-accordion-down">
+                            <AccordionContent className="text-primary-foreground animate-accordion-down">
                                 Find answers to common questions about our workspaces and services. Our team has compiled the most frequent inquiries to help you get the information you need quickly.
                             </AccordionContent>
                         </AccordionItem>
                     </Accordion>
-               
+
                 </div>
             </div>
         </div>
