@@ -1,4 +1,3 @@
-import { SearchBar } from "@/components/common/SearchBar";
 function Hero() {
     return (
         <div
@@ -14,7 +13,7 @@ function Hero() {
                     Find your ideal workspace with our diverse offerings.
                 </p>
 
-                <SearchBar />
+               
             </div>
         </div>
     );
