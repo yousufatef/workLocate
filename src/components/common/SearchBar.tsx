@@ -4,7 +4,7 @@ import { Search } from "lucide-react";
 
 export function SearchBar() {
     return (
-        <div className="w-full mb-8  absolute left-0 top-[-95px]">
+        <div className="w-full mb-8  absolute left-0 top-[-150px] md:top-[-95px]">
             <div className="flex flex-col md:flex-row gap-3 bg-white rounded-xl p-4 shadow-lg">
                 <div className="flex-1">
                     <div className="relative">
