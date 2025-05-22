@@ -17,19 +17,19 @@ import dynamic from "next/dynamic"
 import { ModeToggle } from "@/components/layout/ModeToggle"
 import { DashboardNav } from "./_components/dashboard-nav"
 import { UsersView } from "./_components/users-view"
-import EventsView from "./_components/workspace-view"
-import { ReservationView } from "./_components/booking-view"
+import { ReservationView } from "./_components/reservations-view"
+import WorkspacesView from "./_components/workspace-view"
 const LottieHandler = dynamic(() => import("@/components/common/LottieHandler"), {
   ssr: false, // disables server-side rendering
 })
 
 export default function Dashboard() {
-  const [activeView, setActiveView] = useState<"users" | "events" | "bookings">("users")
+  const [activeView, setActiveView] = useState<"users" | "workspaces" | "reservations">("users")
   const { isSignedIn, user, isLoaded } = useUser();
   if (!isLoaded) {
     return null
   }
-  if (isSignedIn && user.publicMetadata.isAdmin) {
+  if (isSignedIn && user.publicMetadata.role === "admin") {
     return (
       <SidebarProvider>
         <div className="flex min-h-screen w-full">
@@ -55,8 +55,8 @@ export default function Dashboard() {
               </header>
               <main className="flex-1 px-6">
                 {activeView === "users" && <UsersView />}
-                {activeView === "events" && <EventsView />}
-                {activeView === "bookings" && <ReservationView />}
+                {activeView === "workspaces" && <WorkspacesView />}
+                {activeView === "reservations" && <ReservationView />}
               </main>
             </div>
           </SidebarInset>

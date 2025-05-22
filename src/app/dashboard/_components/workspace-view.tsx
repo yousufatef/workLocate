@@ -13,15 +13,17 @@ import { getAllWorkspaces } from "@/lib/actions/Workspace.actions"
 
 
 
-export default function EventsView() {
-    const [events, setEvents] = useState<IWorkspace[]>([])
+export default function WorkspacesView() {
+    const [workspaces, setWorkspaces] = useState<IWorkspace[]>([])
     const router = useRouter()
     useEffect(() => {
-        const getEvents = async () => {
-            const res = await getAllWorkspaces()
-            setEvents(res)
+        const getWorkspaces = async () => {
+            const { workingSpaces } = await getAllWorkspaces();
+            console.log(workingSpaces);
+            setWorkspaces(workingSpaces)
+
         }
-        getEvents()
+        getWorkspaces()
     })
     return (
         <div className="py-6">
@@ -33,31 +35,31 @@ export default function EventsView() {
             <Card>
                 <CardHeader className="flex justify-between items-center">
                     <div>
-                        <CardTitle>Events</CardTitle>
-                        <CardDescription>Manage your upcoming and past events.</CardDescription>
+                        <CardTitle>workspaces</CardTitle>
+                        <CardDescription>Manage your upcoming and past workspaces.</CardDescription>
                     </div>
                     <Button>
-                        <Link href="dashboard/create-event">Create Event</Link>
+                        <Link href="dashboard/create-event">Add Workspace</Link>
                     </Button>
                 </CardHeader>
                 <CardContent>
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead >Event Title</TableHead>
-                                <TableHead>Date</TableHead>
-                                <TableHead>Location</TableHead>
+                                <TableHead >Workspace Name</TableHead>
+                                <TableHead>Address</TableHead>
                                 <TableHead>Actions</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {events
-                                .filter((workspace: IWorkspace) => typeof workspace._id === "string")
-                                .map((workspace: IWorkspace) => (
+                            {workspaces
+                                .filter((workspace) => typeof workspace._id === "string")
+                                .map((workspace) => (
                                     <TableRow key={workspace._id}>
                                         <TableCell className="font-medium">{workspace.name}</TableCell>
-                                        {/* <TableCell>{format(new Date(event.startDateTime), "PP")} - {format(new Date(event.endDateTime), "PP")}</TableCell> */}
-                                        <TableCell>{workspace.location}</TableCell>
+                                        <TableCell>
+                                            {workspace.address}
+                                        </TableCell>
                                         <TableCell className="flex gap-2">
                                             <WorkspaceTableActions workspace={workspace} />
                                         </TableCell>

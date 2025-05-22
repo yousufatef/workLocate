@@ -7,6 +7,7 @@ import { handleError } from "@/lib/utils"
 import { ChevronLeft } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { Skeleton } from "@/components/ui/skeleton"
+import axios from "axios"
 
 interface IUser {
     id: string;
@@ -27,17 +28,20 @@ export function UsersView() {
         const fetchUsers = async () => {
             try {
                 setIsLoading(true)
-                const res = await fetch('/api/user')
-                const data = await res.json()
-                setUsers(data)
+
+                const res = await axios.get('https://worklocate-315a35b40e37.herokuapp.com/api/auth/admin/users')
+
+                setUsers(res.data.users) 
                 setIsLoading(false)
             } catch (err) {
                 handleError(err)
+                setIsLoading(false)
             }
         }
 
         fetchUsers()
     }, [])
+
 
     return (
         <div className="py-6">
