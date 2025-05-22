@@ -15,10 +15,10 @@ import { useUser } from "@clerk/nextjs"
 import Link from "next/link"
 import dynamic from "next/dynamic"
 import { ModeToggle } from "@/components/layout/ModeToggle"
-import { DashboardNav } from "../_components/dashboard-nav"
-import { UsersView } from "../_components/users-view"
-import EventsView from "../_components/workspace-view"
-import { BookingsView } from "../_components/booking-view"
+import { DashboardNav } from "./_components/dashboard-nav"
+import { UsersView } from "./_components/users-view"
+import EventsView from "./_components/workspace-view"
+import { ReservationView } from "./_components/booking-view"
 const LottieHandler = dynamic(() => import("@/components/common/LottieHandler"), {
   ssr: false, // disables server-side rendering
 })
@@ -56,7 +56,7 @@ export default function Dashboard() {
               <main className="flex-1 px-6">
                 {activeView === "users" && <UsersView />}
                 {activeView === "events" && <EventsView />}
-                {activeView === "bookings" && <BookingsView />}
+                {activeView === "bookings" && <ReservationView />}
               </main>
             </div>
           </SidebarInset>

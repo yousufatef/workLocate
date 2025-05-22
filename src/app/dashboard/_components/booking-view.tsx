@@ -5,10 +5,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useRouter } from "next/navigation"
 import { ChevronLeft } from "lucide-react"
 import { useEffect, useState } from "react"
-import { getAllBookings } from "@/lib/actions/reservation.actions" // You'll need to create this
+import { getAllReservations } from "@/lib/actions/reservation.actions" // You'll need to create this
 import { format } from "date-fns"
 
-interface Booking {
+interface Reservation {
     _id: string;
     userId: string;
     eventId: {
@@ -26,9 +26,9 @@ interface Booking {
     status: "confirmed" | "cancelled" | "completed";
 }
 
-export function BookingsView() {
+export function ReservationView() {
     const router = useRouter()
-    const [bookings, setBookings] = useState<Booking[]>([])
+    const [reservations, setReservations] = useState<Reservation[]>([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
 
@@ -36,8 +36,8 @@ export function BookingsView() {
         const fetchBookings = async () => {
             try {
                 setLoading(true)
-                const allBookings = await getAllBookings()
-                setBookings(allBookings)
+                const allReservations = await getAllReservations()
+                setReservations(allReservations)
             } catch (err) {
                 setError("Failed to fetch bookings")
                 console.error(err)
@@ -58,7 +58,7 @@ export function BookingsView() {
                 </div>
                 <Card>
                     <CardHeader>
-                        <CardTitle>Bookings</CardTitle>
+                        <CardTitle>Reservations</CardTitle>
                         <CardDescription>Loading bookings...</CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -82,7 +82,7 @@ export function BookingsView() {
                 </div>
                 <Card>
                     <CardHeader>
-                        <CardTitle>Bookings</CardTitle>
+                        <CardTitle>Reservations</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="text-red-500">{error}</div>
@@ -100,27 +100,27 @@ export function BookingsView() {
             </div>
             <Card>
                 <CardHeader>
-                    <CardTitle>Bookings</CardTitle>
+                    <CardTitle>Reservations</CardTitle>
                     <CardDescription>View and manage customer bookings.</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead>Booking ID</TableHead>
-                                <TableHead>Event</TableHead>
+                                <TableHead>Reservation ID</TableHead>
+                                <TableHead>Reservation</TableHead>
                                 <TableHead>Date</TableHead>
                                 <TableHead>Status</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {bookings.map((booking) => (
-                                <TableRow key={booking._id}>
-                                    <TableCell className="font-medium">BK-{booking._id.slice(-6).toUpperCase()}</TableCell>
-                                    <TableCell>{booking.eventId.title}</TableCell>
-                                    <TableCell>{booking.user?.firstName} {booking.user?.lastName}</TableCell>
-                                    <TableCell>{booking.eventId.title}</TableCell>
-                                    <TableCell>{format(new Date(booking.eventId.startDateTime), "PP")}</TableCell>
+                            {reservations.map((reservation) => (
+                                <TableRow key={reservation._id}>
+                                    <TableCell className="font-medium">BK-{reservation._id.slice(-6).toUpperCase()}</TableCell>
+                                    <TableCell>{reservation.eventId.title}</TableCell>
+                                    <TableCell>{reservation.user?.firstName} {reservation.user?.lastName}</TableCell>
+                                    <TableCell>{reservation.eventId.title}</TableCell>
+                                    <TableCell>{format(new Date(reservation.eventId.startDateTime), "PP")}</TableCell>
 
                                 </TableRow>
                             ))}

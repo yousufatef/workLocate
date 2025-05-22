@@ -1,24 +1,24 @@
 "use client"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { getAllEventsDashboard } from "@/lib/actions/event.actions"
 import { useEffect, useState } from "react"
-import { IEvent } from "@/types/event.type"
-import { format } from "date-fns"
+// import { format } from "date-fns"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import EventTableActions from "./EventTableActions"
 import { ChevronLeft } from "lucide-react"
 import { useRouter } from "next/navigation"
+import WorkspaceTableActions from "./WorkspaceTableActions"
+import { IWorkspace } from "@/types/workspace"
+import { getAllWorkspaces } from "@/lib/actions/Workspace.actions"
 
 
 
 export default function EventsView() {
-    const [events, setEvents] = useState<IEvent[]>([])
+    const [events, setEvents] = useState<IWorkspace[]>([])
     const router = useRouter()
     useEffect(() => {
         const getEvents = async () => {
-            const res = await getAllEventsDashboard()
+            const res = await getAllWorkspaces()
             setEvents(res)
         }
         getEvents()
@@ -52,14 +52,14 @@ export default function EventsView() {
                         </TableHeader>
                         <TableBody>
                             {events
-                                .filter((event: IEvent) => typeof event._id === "string")
-                                .map((event: IEvent) => (
-                                    <TableRow key={event._id}>
-                                        <TableCell className="font-medium">{event.title}</TableCell>
-                                        <TableCell>{format(new Date(event.startDateTime), "PP")} - {format(new Date(event.endDateTime), "PP")}</TableCell>
-                                        <TableCell>{event.location}</TableCell>
+                                .filter((workspace: IWorkspace) => typeof workspace._id === "string")
+                                .map((workspace: IWorkspace) => (
+                                    <TableRow key={workspace._id}>
+                                        <TableCell className="font-medium">{workspace.name}</TableCell>
+                                        {/* <TableCell>{format(new Date(event.startDateTime), "PP")} - {format(new Date(event.endDateTime), "PP")}</TableCell> */}
+                                        <TableCell>{workspace.location}</TableCell>
                                         <TableCell className="flex gap-2">
-                                            <EventTableActions event={event} />
+                                            <WorkspaceTableActions workspace={workspace} />
                                         </TableCell>
                                     </TableRow>
                                 ))}
