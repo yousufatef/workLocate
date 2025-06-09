@@ -6,7 +6,7 @@ interface AmenitiesProps {
 
 const Amenities = ({ amenities }: AmenitiesProps) => {
     return (
-        <div className="mb-8">
+        <div className="mb-6 md:mb-8">
             <Heading>Amenities</Heading>
             <div className="w-fit flex flex-wrap gap-5 border rounded-lg shadow-sm p-4">
                 {Object.values(amenities).map((value, idx) => (

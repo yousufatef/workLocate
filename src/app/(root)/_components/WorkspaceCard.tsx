@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card, CardContent } from "@/components/ui/card"
-import StarRating from "@/components/workpace/StarRating"
+import StarRating from "@/components/workspace/StarRating"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import Image from "next/image"
