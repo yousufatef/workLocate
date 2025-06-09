@@ -18,7 +18,7 @@ export default function WorkspacesView() {
     const router = useRouter()
     useEffect(() => {
         const getWorkspaces = async () => {
-            const { workingSpaces } = await getAllWorkspaces();
+            const { workingSpaces } = await getAllWorkspaces({});
             console.log(workingSpaces);
             setWorkspaces(workingSpaces)
 
