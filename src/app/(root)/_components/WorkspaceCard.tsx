@@ -28,7 +28,7 @@ const WorkspaceCard = ({ workspace }: { workspace: IWorkspace }) => {
                     <div className="text-sm text-gray-500 flex justify-between">
                         <p className="line-clamp-1">{workspace?.address}</p>
                     </div>
-                    <p className="text-gray-500 leading-5 line-clamp-3"> {/* Increased line clamp */}
+                    <p className="text-gray-500 leading-5 line-clamp-2 md:line-clamp-3"> {/* Increased line clamp */}
                         {workspace?.description || "No description available"} {/* Fallback text */}
                     </p>
                 </div>
