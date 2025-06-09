@@ -1,7 +1,9 @@
+import { SearchBar } from "@/components/common/SearchBar";
+
 function Hero() {
     return (
         <div
-            className="w-full bg-cover bg-center flex flex-col justify-center items-center py-28"
+            className="w-full relative bg-cover bg-center flex flex-col justify-center items-center py-20"
             style={{ backgroundImage: "url('/assets/images/hero.png')" }}
         >
             <div className="container">
@@ -13,8 +15,8 @@ function Hero() {
                     Find your ideal workspace with our diverse offerings.
                 </p>
 
-               
-            </div>
+                <SearchBar />
+            </div>           
         </div>
     );
 }

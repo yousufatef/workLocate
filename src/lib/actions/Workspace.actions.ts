@@ -5,15 +5,26 @@ import axiosInstance from '../axios';
 import { handleError } from '../utils';
 interface WorkspacesResponse {
     workingSpaces: IWorkspace[];
+    totalPages: number;
 }
 
-export async function getAllWorkspaces(): Promise<WorkspacesResponse> {
+
+export async function getAllWorkspaces({ query, limit = 6, page = 1 }: { query?: string; limit?: number; page?: number }): Promise<WorkspacesResponse> {
     try {
-        const res = await axiosInstance.get('/workspace/all');
-        return { workingSpaces: res.data.workingSpaces };
+        const res = await axiosInstance.get('/workspace/all', {
+            params: {
+                page,
+                query,
+                limit
+            },
+        });
+        return {
+            workingSpaces: res.data.data,
+            totalPages: res.data.totalPages,
+        };
     } catch (error) {
         handleError(error);
-        return { workingSpaces: [] }; 
+        return { workingSpaces: [], totalPages: 0 };
     }
 }
 export async function getWorkspaceById({ id }: { id: string }) {
