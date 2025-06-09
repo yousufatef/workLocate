@@ -22,7 +22,7 @@ const WorkspaceCard = ({ workspace }: { workspace: IWorkspace }) => {
             <CardContent className="px-4 py-2 h-48 flex flex-col">
                 <div className="space-y-4 mb-2 flex-grow overflow-hidden">
                     <div className="flex workspaces-center justify-between gap-2">
-                        <h3 className="text-xl font-semibold line-clamp-1">{workspace?.name}</h3>
+                        <h3 className="text-xl font-semibold">{workspace?.name}</h3>
                         <StarRating rate={workspace.averageRating || 0} /> {/* Default to 0 if undefined */}
                     </div>
                     <div className="text-sm text-gray-500 flex justify-between">

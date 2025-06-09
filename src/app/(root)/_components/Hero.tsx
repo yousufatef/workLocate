@@ -4,7 +4,7 @@ import { Suspense } from "react";
 function Hero() {
     return (
         <div
-            className="w-full relative bg-cover bg-center flex flex-col justify-center items-center py-20"
+            className="w-full relative bg-cover bg-center flex flex-col justify-center items-center pt-20"
             style={{ backgroundImage: "url('/assets/images/hero.png')" }}
         >
             <div className="container">

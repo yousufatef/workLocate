@@ -21,7 +21,7 @@ const Header = () => {
                         <SheetContent side="left">
                             <div className="flex flex-col gap-2 py-4 p-6">
                                 <Link href="/" className="flex items-center gap-2 text-lg font-bold mb-12">
-                                    <span>WorkLocate</span>
+                                    <img src="/assets/images/worklocate.svg" alt="WorkLocate Logo" className="w-12 h-12" />
                                 </Link>
                                 <nav className="flex flex-col gap-3">
                                     <Link
@@ -57,7 +57,7 @@ const Header = () => {
                         </SheetContent>
                     </Sheet>
                     <Link href="/" className="flex items-center gap-2 text-lg font-bold">
-                        <span>WorkLocate</span>
+                        <img src="/assets/images/worklocate.svg" alt="WorkLocate Logo" className="w-12 h-12 max-md:hidden" />
                     </Link>
                 </div>
                 <nav className="hidden md:flex items-center gap-6">
