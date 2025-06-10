@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
-import { Calendar, Home, Menu, Ticket } from "lucide-react";
+import { Calendar, Home, MapPin, Menu, Ticket } from "lucide-react";
 import { Button } from "../ui/button";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { ModeToggle } from "./ModeToggle";
@@ -20,8 +20,15 @@ const Header = () => {
                         </SheetTrigger>
                         <SheetContent side="left">
                             <div className="flex flex-col gap-2 py-4 p-6">
-                                <Link href="/" className="flex items-center gap-2 text-lg font-bold mb-12">
-                                    <img src="/assets/images/worklocate.svg" alt="WorkLocate Logo" className="w-12 h-12" />
+                                <Link href="/" className="flex items-center gap-2 text-lg font-bold mb-10">
+                                    <h1 className="text-xl font-bold text-primary flex gap-1 items-center">
+                                        <span className="shadow-2xl">Work</span>
+                                        <span className="flex items-center">
+                                            <span className="mr-0.5">L</span>
+                                            <MapPin className="text-primary shadow-2xl mx-[-5px]" />
+                                            <span className="ml-0.5">cate</span>
+                                        </span>
+                                    </h1>
                                 </Link>
                                 <nav className="flex flex-col gap-3">
                                     <Link
@@ -57,7 +64,14 @@ const Header = () => {
                         </SheetContent>
                     </Sheet>
                     <Link href="/" className="flex items-center gap-2 text-lg font-bold">
-                        <img src="/assets/images/worklocate.svg" alt="WorkLocate Logo" className="w-12 h-12 max-md:hidden" />
+                        <h1 className="text-xl font-bold text-primary flex gap-1 items-center max-md:hidden">
+                            <span className="shadow-2xl">Work</span>
+                            <span className="flex items-center">
+                                <span className="mr-0.5">L</span>
+                                <MapPin className="text-primary shadow-2xl mx-[-5px]" />
+                                <span className="ml-0.5">cate</span>
+                            </span>
+                        </h1>
                     </Link>
                 </div>
                 <nav className="hidden md:flex items-center gap-6">

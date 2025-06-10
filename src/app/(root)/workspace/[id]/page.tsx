@@ -24,7 +24,7 @@ const Workspace = async ({ params }: { params: Promise<{ id: string }> }) => {
                 <div className="flex flex-col justify-center items-center gap-2">
                     <Button className="w-full md:w-auto bg-primary cursor-pointer transition-colors duration-300 ease-in-out"
                     >
-                        <Link href="/booking">BOOK NOW</Link>
+                        <Link href={`/rooms/${id}`}>Show Rooms</Link>
                     </Button>
                     <StarRating rate={workingSpace.averageRating} />
                 </div>
