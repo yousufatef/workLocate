@@ -5,38 +5,39 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import Image from "next/image"
 import { IWorkspace } from '@/types/workspace'
+import { MapPin } from 'lucide-react'
 
 const WorkspaceCard = ({ workspace }: { workspace: IWorkspace }) => {
     return (
         <Card className="flex flex-col py-0 pb-2" key={workspace?._id}>
-            <Link href={`/workspace/${workspace?._id}`} className="p-2">
-                <div className="relative aspect-video"> {/* Added aspect ratio container */}
+            <Link href={`/workspace/${workspace?._id}`} className="px-2 pt-2">
+                <div className="relative aspect-video">
                     <Image
-                        src={"/assets/images/workNest.png"} // Use workspace image if available
-                        className="object-cover" // Changed from contain to cover
-                        alt={`${workspace?.name} workspace`} // More descriptive alt text
-                        fill // Use fill with aspect ratio container
+                        src="/assets/images/workNest.png"
+                        className="object-cover"
+                        alt={`${workspace?.name} workspace`}
+                        fill
                     />
                 </div>
             </Link>
-            <CardContent className="px-4 py-2 h-48 flex flex-col">
-                <div className="space-y-4 mb-2 flex-grow overflow-hidden">
-                    <div className="flex workspaces-center justify-between gap-2">
-                        <h3 className="text-xl font-semibold">{workspace?.name}</h3>
-                        <StarRating rate={workspace.averageRating || 0} /> {/* Default to 0 if undefined */}
-                    </div>
-                    <div className="text-sm text-gray-500 flex justify-between">
+
+            <CardContent className="px-4 flex flex-col flex-grow">
+                <div className="flex flex-col gap-2 mb-4 flex-grow">
+                    <StarRating rate={workspace.averageRating || 0} />
+                    <h3 className="text-[18px] font-semibold truncate">
+                        {workspace?.name}
+                    </h3>
+                    <div className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2">
+                        <MapPin className="w-4 h-4" />
                         <p className="line-clamp-1">{workspace?.address}</p>
                     </div>
-                    <p className="text-gray-500 leading-5 line-clamp-2 md:line-clamp-3"> {/* Increased line clamp */}
-                        {workspace?.description || "No description available"} {/* Fallback text */}
-                    </p>
                 </div>
-                <Link href={`/workspace/${workspace?._id}`} className="w-full">
-                    <Button className="bg-primary w-full">View Details</Button>
+                <Link href={`/workspace/${workspace?._id}`} className="w-full mt-auto">
+                    <Button className="bg-primary w-full cursor-pointer">View Details</Button>
                 </Link>
             </CardContent>
         </Card>
+
     )
 }
 

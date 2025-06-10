@@ -9,6 +9,7 @@ import useWorkspace from "@/hooks/useWorkspaces";
 import Spinner from "@/components/common/Spinner";
 import WorkspaceCard from "./WorkspaceCard";
 import LoadingSpinner from "@/components/common/Spinner";
+import Carousal from "./Carousal";
 
 const WorkingList = () => {
   const searchParams = useSearchParams();
@@ -39,8 +40,9 @@ const WorkingList = () => {
 
   return (
     <div className="container mt-[60px] relative">
-      <Heading>Featured Spaces</Heading>
-
+      <Heading>Near You</Heading>
+      <Carousal />
+      <Heading>Explore Workspaces</Heading>
       <InfiniteScroll
         dataLength={workspaces.length}
         next={loadMore}
@@ -54,7 +56,7 @@ const WorkingList = () => {
           </div>
         }
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-2">
           {workspaces.map((item: IWorkspace) => (
             <WorkspaceCard key={item._id} workspace={item} />
           ))}

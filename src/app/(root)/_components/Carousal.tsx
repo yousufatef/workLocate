@@ -8,7 +8,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { fetchWorkspaces } from "@/lib/api";
 import { useEffect, useState } from "react";
-// import Image from "next/image";
+
+
 const Carousal = () => {
     interface Workspace {
         _id: string;
@@ -18,19 +19,38 @@ const Carousal = () => {
     }
 
     const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const router = useRouter();
+
     useEffect(() => {
         async function loadWorkspaces() {
-            const data = await fetchWorkspaces();
-            console.log(data);
-            setWorkspaces(data);
-            console.log(data);
+            try {
+                setLoading(true);
+                const response = await fetchWorkspaces();
+
+                // Handle both possible response structures
+                const workspacesData = response.data?.data || response.data;
+
+                if (!Array.isArray(workspacesData)) {
+                    throw new Error("Invalid workspaces data format");
+                }
+
+                setWorkspaces(workspacesData);
+            } catch (err) {
+                setError(err instanceof Error ? err.message : "Failed to load workspaces");
+                console.error("API Error:", err);
+            } finally {
+                setLoading(false);
+            }
         }
 
         loadWorkspaces();
     }, []);
-    const router = useRouter()
 
-
+    if (loading) return <div>Loading workspaces...</div>;
+    if (error) return <div>Error: {error}</div>;
+    if (workspaces.length === 0) return <div>No workspaces available</div>;
 
     return (
         <Carousel
@@ -44,8 +64,7 @@ const Carousal = () => {
                     stopOnMouseEnter: true,
                     stopOnInteraction: false
                 })
-            ]
-            }
+            ]}
             className="w-full"
         >
             <CarouselContent>
@@ -55,7 +74,11 @@ const Carousal = () => {
                             <Card className="flex flex-col py-0 pb-2">
                                 <Link href={`/workspace/${item?._id}`} className="p-2">
                                     <div>
-                                        <img src='/assets/images/workNest.png' className="object-contain" alt="work-nest" />
+                                        <img
+                                            src='/assets/images/workNest.png'
+                                            className="object-contain"
+                                            alt="work-nest"
+                                        />
                                     </div>
                                 </Link>
                                 <CardContent className="px-4 py-2 h-48 flex flex-col">
@@ -92,4 +115,4 @@ const Carousal = () => {
     )
 }
 
-export default Carousal
+export default Carousal;

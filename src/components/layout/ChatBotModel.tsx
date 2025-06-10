@@ -46,7 +46,7 @@ const ChatBotModel = () => {
                         <div className="flex items-center justify-between border-b pb-2">
                             <div className="flex items-center gap-2">
                                 <Bot className="text-primary" />
-                                <h3 className="font-semibold text-lg">Chat Assistant</h3>
+                                <h3 className="font-semibold text-lg">Work Locate Assistant</h3>
                             </div>
                             <Button
                                 variant="ghost"
