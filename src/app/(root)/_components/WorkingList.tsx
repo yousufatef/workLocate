@@ -9,7 +9,8 @@ import useWorkspace from "@/hooks/useWorkspaces";
 import Spinner from "@/components/common/Spinner";
 import WorkspaceCard from "./WorkspaceCard";
 import LoadingSpinner from "@/components/common/Spinner";
-import Carousal from "./Carousal";
+import WorkspaceCardSkeleton from "./WorkspaceCardSkeleton";
+// import Carousal from "./Carousal";
 
 const WorkingList = () => {
   const searchParams = useSearchParams();
@@ -19,6 +20,7 @@ const WorkingList = () => {
     workspaces,
     error,
     hasMore,
+    loading,
     loadMore,
   } = useWorkspace(query);
 
@@ -30,18 +32,24 @@ const WorkingList = () => {
     return <Spinner />;
   }
 
-  if (workspaces.length === 0 && !error) {
-    return (
-      <div className="text-center py-8">
-        <p className="text-gray-500">No workspaces found</p>
-      </div>
-    );
+  if (loading) {
   }
+  if (workspaces.length === 0 && !error) {
+    return <WorkspaceCardSkeleton />
+
+  }
+  // if (workspaces.length === 0 && !error) {
+  //   return (
+  //     <div className="text-center py-8">
+  //       <p className="text-gray-500">No workspaces found</p>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="container mt-[60px] relative">
-      <Heading>Near You</Heading>
-      <Carousal />
+      {/* <Heading>Near You</Heading>
+      <Carousal /> */}
       <Heading>Explore Workspaces</Heading>
       <InfiniteScroll
         dataLength={workspaces.length}
