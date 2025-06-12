@@ -1,14 +1,8 @@
 import { Suspense } from "react"
 import { RoomsContainer } from "@/components/rooms/rooms-container"
-import { RoomsLoading } from "@/components/rooms/rooms-loading"// Removed invalid import for PageProps
+import { RoomsLoading } from "@/components/rooms/rooms-loading"
 
-type WorkspaceRoomsPageProps = {
-    params: {
-        workspaceId: string;
-    };
-};
-
-export default function WorkspaceRoomsPage({ params }: WorkspaceRoomsPageProps) {
+const WorkspaceRoomsPage = ({ params }: { params: { workspaceId: string } }) => {
     const { workspaceId } = params
 
     return (
@@ -19,3 +13,5 @@ export default function WorkspaceRoomsPage({ params }: WorkspaceRoomsPageProps) 
         </div>
     )
 }
+
+export default WorkspaceRoomsPage
