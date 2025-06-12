@@ -9,7 +9,6 @@ import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { BookingProgressBar } from "@/components/booking/BookingContainer"
 
 
 
@@ -58,7 +57,7 @@ export default function Payment() {
         <div className="min-h-screen bg-gray-50">
             <main className="container mx-auto py-8 px-4">
                 <div className="max-w-4xl mx-auto">
-                    <BookingProgressBar currentStep={2} />
+                    {/* <BookingProgressBar currentStep={2} /> */}
                     <div className="flex flex-col gap-8 mt-8">
                         <div className="flex items-center">
                             <Link href="/booking">
