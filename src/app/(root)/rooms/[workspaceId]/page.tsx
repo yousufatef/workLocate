@@ -2,13 +2,14 @@ import { Suspense } from "react"
 import { RoomsContainer } from "@/components/rooms/rooms-container"
 import { RoomsLoading } from "@/components/rooms/rooms-loading"
 
-
-export default async function WorkspaceRoomsPage({ params }: {
+interface WorkspaceRoomsPageProps {
     params: {
         workspaceId: string
     }
-}) {
-    const { workspaceId } = await params
+}
+
+export default function WorkspaceRoomsPage({ params }: WorkspaceRoomsPageProps) {
+    const { workspaceId } = params
 
     return (
         <div className="container mx-auto px-4 py-8">
