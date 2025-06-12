@@ -1,16 +1,15 @@
-"use client"
-import { useRouter } from 'next/router'
-import { Suspense } from "react"
-import { RoomsContainer } from "@/components/rooms/rooms-container"
-import { RoomsLoading } from "@/components/rooms/rooms-loading"
+import { RoomsContainer } from '@/components/rooms/rooms-container';
+import { RoomsLoading } from '@/components/rooms/rooms-loading';
+import { Suspense } from 'react';
 
-const WorkspaceRoomsPage = () => {
-    const router = useRouter()
-    const { workspaceId } = router.query
+type Props = {
+    params: {
+        workspaceId: string;
+    };
+};
 
-    if (typeof workspaceId !== "string") {
-        return <div>Invalid workspace ID</div>;
-    }
+const WorkspaceRoomsPage = ({ params }: Props) => {
+    const { workspaceId } = params;
 
     return (
         <div className="container mx-auto px-4 py-8">
@@ -18,7 +17,7 @@ const WorkspaceRoomsPage = () => {
                 <RoomsContainer workspaceId={workspaceId} />
             </Suspense>
         </div>
-    )
-}
+    );
+};
 
-export default WorkspaceRoomsPage
+export default WorkspaceRoomsPage;
