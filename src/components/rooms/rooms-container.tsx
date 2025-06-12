@@ -10,10 +10,10 @@ import { RoomsEmpty } from "./rooms-empty"
 
 
 interface RoomsContainerProps {
-  workspaceId: string
+  id: string
 }
 
-export function RoomsContainer({ workspaceId }: RoomsContainerProps) {
+export function RoomsContainer({ id }: RoomsContainerProps) {
   const [rooms, setRooms] = useState<Room[]>([])
   const [filteredRooms, setFilteredRooms] = useState<Room[]>([])
   const [loading, setLoading] = useState(true)
@@ -24,7 +24,7 @@ export function RoomsContainer({ workspaceId }: RoomsContainerProps) {
 
   useEffect(() => {
     const fetchRooms = async () => {
-      if (!workspaceId) {
+      if (!id) {
         setError("Workspace ID is required")
         setLoading(false)
         return
@@ -34,7 +34,7 @@ export function RoomsContainer({ workspaceId }: RoomsContainerProps) {
         setLoading(true)
         setError(null)
 
-        const response = await fetch(`https://worklocate-315a35b40e37.herokuapp.com/api/room/${workspaceId}/all`)
+        const response = await fetch(`https://worklocate-315a35b40e37.herokuapp.com/api/room/${id}/all`)
 
         if (!response.ok) {
           if (response.status === 400) {
@@ -62,7 +62,7 @@ export function RoomsContainer({ workspaceId }: RoomsContainerProps) {
     }
 
     fetchRooms()
-  }, [workspaceId])
+  }, [id])
 
   // Filter rooms based on search term and filters
   useEffect(() => {

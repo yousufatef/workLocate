@@ -2,19 +2,18 @@ import { RoomsContainer } from '@/components/rooms/rooms-container';
 import { RoomsLoading } from '@/components/rooms/rooms-loading';
 import { Suspense } from 'react';
 
-type Props = {
-    params: {
-        workspaceId: string;
-    };
-};
+interface PageProps {
+    params: { id: string };
+}
 
-const WorkspaceRoomsPage = ({ params }: Props) => {
-    const { workspaceId } = params;
+
+const WorkspaceRoomsPage = ({ params }: PageProps) => {
+    const { id } = params;
 
     return (
         <div className="container mx-auto px-4 py-8">
             <Suspense fallback={<RoomsLoading />}>
-                <RoomsContainer workspaceId={workspaceId} />
+                <RoomsContainer id={id} />
             </Suspense>
         </div>
     );
