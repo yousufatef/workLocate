@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { BookingProgressBar } from "@/components/booking/BookingProgressBar"
+import { BookingProgressBar } from "@/components/booking/BookingContainer"
 
 
 

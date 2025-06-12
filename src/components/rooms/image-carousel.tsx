@@ -35,7 +35,7 @@ export function ImageCarousel({ images, alt }: ImageCarouselProps) {
                 src={images[currentIndex] || "/placeholder.svg"}
                 alt={`${alt} - Image ${currentIndex + 1}`}
                 fill
-                className="object-cover transition-opacity duration-300"
+                className="object-cover transition-opacity duration-300 px-2 rounded-xl"
             />
 
             {images.length > 1 && (

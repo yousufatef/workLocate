@@ -1,26 +1,32 @@
+"use client"
+
+import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Users, DollarSign, MapPin, Calendar } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Users, DollarSign, MapPin, Calendar, Clock } from "lucide-react"
+import { useRouter } from "next/navigation"
 import { ImageCarousel } from "./image-carousel"
 import { Room } from "@/types/rooms"
-import { Badge } from "../ui/badge"
 
 interface RoomCardProps {
     room: Room
 }
 
 export function RoomCard({ room }: RoomCardProps) {
-    // const getStatusColor = (status: string) => {
-    //     switch (status) {
-    //         case "available":
-    //             return "bg-green-100 text-green-800 hover:bg-green-200"
-    //         case "occupied":
-    //             return "bg-red-100 text-red-800 hover:bg-red-200"
-    //         case "unavailable":
-    //             return "bg-gray-100 text-gray-800 hover:bg-gray-200"
-    //         default:
-    //             return "bg-gray-100 text-gray-800 hover:bg-gray-200"
-    //     }
-    // }
+    const router = useRouter()
+
+    const getStatusColor = (status: string) => {
+        switch (status) {
+            case "available":
+                return "bg-green-100 text-green-800 hover:bg-green-200"
+            case "occupied":
+                return "bg-red-100 text-red-800 hover:bg-red-200"
+            case "unavailable":
+                return "bg-gray-100 text-gray-800 hover:bg-gray-200"
+            default:
+                return "bg-gray-100 text-gray-800 hover:bg-gray-200"
+        }
+    }
 
     const formatDate = (dateString: string) => {
         try {
@@ -34,15 +40,28 @@ export function RoomCard({ room }: RoomCardProps) {
         }
     }
 
+    const handleBookRoom = () => {
+        router.push(`/booking/${room._id}`)
+    }
+
+    const isAvailable = room.availabilityStatus === "available"
+
     return (
         <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
             <ImageCarousel images={room.images || []} alt={room.name || "Room"} />
 
             <CardHeader>
-                <CardTitle className="text-lg font-semibold line-clamp-2">{room.name}</CardTitle>
-                <div className="flex items-center text-sm text-muted-foreground">
-                    <MapPin className="w-4 h-4 mr-1" />
-                    {room.workspaceId?.name || "Unknown workspace"}
+                <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                        <CardTitle className="text-lg font-semibold line-clamp-2 mb-2">{room.name}</CardTitle>
+                        <div className="flex items-center text-sm text-muted-foreground">
+                            <MapPin className="w-4 h-4 mr-1" />
+                            {room.workspaceId?.name || "Unknown workspace"}
+                        </div>
+                    </div>
+                    <Badge className={getStatusColor(room.availabilityStatus)} variant="secondary">
+                        {room.availabilityStatus}
+                    </Badge>
                 </div>
             </CardHeader>
 
@@ -85,6 +104,25 @@ export function RoomCard({ room }: RoomCardProps) {
 
                 <div className="text-xs text-muted-foreground">
                     Owner: {room.workspaceId?.ownerId?.firstName || ""} {room.workspaceId?.ownerId?.lastName || ""}
+                </div>
+
+                {/* Book Button */}
+                <div className="pt-4">
+                    <Button
+                        onClick={handleBookRoom}
+                        disabled={!isAvailable}
+                        className="w-full"
+                        variant={isAvailable ? "default" : "secondary"}
+                    >
+                        {isAvailable ? (
+                            <>
+                                <Clock className="w-4 h-4 mr-2" />
+                                Book Now
+                            </>
+                        ) : (
+                            "Currently Unavailable"
+                        )}
+                    </Button>
                 </div>
             </CardContent>
         </Card>
