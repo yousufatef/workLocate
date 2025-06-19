@@ -40,3 +40,12 @@ export async function getWorkspaceById({ id }: { id: string }) {
         return null;
     }
 }
+export async function deleteWorkspace({ id }: { id: string }) {
+    try {
+        const res = await axiosInstance.delete(`/workspace/${id}`);
+        return res.data;
+    } catch (error) {
+        handleError(error);
+        return null;
+    }
+}

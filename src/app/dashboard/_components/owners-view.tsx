@@ -20,17 +20,16 @@ interface IUser {
     profilePicture?: string;
 }
 
-export function UsersView() {
-
-    const [users, setUsers] = useState<IUser[]>([])
+export function OwnerView() {
+    const [owners, setOwners] = useState<IUser[]>([])
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
     useEffect(() => {
-        const fetchUsers = async () => {
+        const fetchOwners = async () => {
             try {
                 setIsLoading(true)
-                const res = await axios.get('https://worklocate-315a35b40e37.herokuapp.com/api/auth/admin/users')
-                setUsers(res.data.users)
+                const res = await axios.get('https://worklocate-315a35b40e37.herokuapp.com/api/auth/admin/owners')
+                setOwners(res.data.owners)
                 setIsLoading(false)
             } catch (err) {
                 handleError(err)
@@ -38,9 +37,9 @@ export function UsersView() {
             }
         }
 
-        fetchUsers()
-    }, [])
 
+        fetchOwners()
+    }, [])
 
 
     return (
@@ -51,45 +50,45 @@ export function UsersView() {
             </div>
             <Card>
                 <CardHeader>
-                    <CardTitle>Users</CardTitle>
-                    <CardDescription>Manage your users and their permissions.</CardDescription>
+                    <CardTitle>Owners</CardTitle>
+                    <CardDescription>Manage your owners and their permissions.</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead>User</TableHead>
+                                <TableHead>Owner</TableHead>
                                 <TableHead>Role</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {isLoading
-                                ? [...Array(5)].map((_, i) => (
-                                    <TableRow key={`skeleton-${i}`}>
-                                        <TableCell colSpan={2}>
-                                            <UsersViewSkeleton />
-                                        </TableCell>
-                                    </TableRow>
-                                )) : (
-                                    // Show actual data when loaded
-                                    users.map((user) => (
-                                        <TableRow key={user.email}>
-                                            <TableCell className="font-medium">
-                                                <div className="flex items-center gap-3">
-                                                    <Avatar className="h-10 w-10">
-                                                        <AvatarImage src={user.profilePicture || "/placeholder.svg"} alt={user.firstName} />
-                                                        <AvatarFallback>{user.firstName.substring(0, 2).toUpperCase()}</AvatarFallback>
-                                                    </Avatar>
-                                                    <div>
-                                                        <div className="font-medium">{user.firstName} {user.lastName}</div>
-                                                        <div className="text-sm text-muted-foreground">{user.email}</div>
-                                                    </div>
+                            {isLoading ? (
+                                // Show skeleton loader while loading
+                                <TableRow>
+                                    <TableCell colSpan={2}>
+                                        <OwnerViewSkeleton />
+                                    </TableCell>
+                                </TableRow>
+                            ) : (
+                                // Show actual data when loaded
+                                owners.map((owner) => (
+                                    <TableRow key={owner.email}>
+                                        <TableCell className="font-medium">
+                                            <div className="flex items-center gap-3">
+                                                <Avatar className="h-10 w-10">
+                                                    <AvatarImage src={owner.profilePicture || "/placeholder.svg"} alt={owner.firstName} />
+                                                    <AvatarFallback>{owner.firstName.substring(0, 2).toUpperCase()}</AvatarFallback>
+                                                </Avatar>
+                                                <div>
+                                                    <div className="font-medium">{owner.firstName} {owner.lastName}</div>
+                                                    <div className="text-sm text-muted-foreground">{owner.email}</div>
                                                 </div>
-                                            </TableCell>
-                                            <TableCell>{user.isAdmin ? "Admin" : "User"}</TableCell>
-                                        </TableRow>
-                                    ))
-                                )}
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>Owner</TableCell>
+                                    </TableRow>
+                                ))
+                            )}
                         </TableBody>
                     </Table>
                 </CardContent>
@@ -98,7 +97,7 @@ export function UsersView() {
     )
 }
 
-const UsersViewSkeleton = () => {
+const OwnerViewSkeleton = () => {
     return (
         <div className="space-y-4">
             {Array.from({ length: 5 }).map((_, idx) => (

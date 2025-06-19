@@ -8,23 +8,22 @@ import { Button } from "@/components/ui/button"
 import { ChevronLeft } from "lucide-react"
 import { useRouter } from "next/navigation"
 import WorkspaceTableActions from "./WorkspaceTableActions"
-import { IWorkspace } from "@/types/workspace"
-import { deleteWorkspace, getAllWorkspaces } from "@/lib/actions/Workspace.actions"
+import { deleteRoom, getAllRooms } from "@/lib/actions/room.actions"
+import { Room } from "@/types/rooms"
 
 
 
-export default function WorkspacesView() {
-    const [workspaces, setWorkspaces] = useState<IWorkspace[]>([])
+export default function RoomsView() {
+    const [rooms, setRooms] = useState<Room[]>([])
     const router = useRouter()
     useEffect(() => {
-        const getWorkspaces = async () => {
-            const { workingSpaces } = await getAllWorkspaces({});
-            console.log(workingSpaces);
-            setWorkspaces(workingSpaces)
-
+        const getRooms = async () => {
+            const { rooms } = await getAllRooms();
+            console.log(rooms);
+            setRooms(rooms)
         }
-        getWorkspaces()
-    })
+        getRooms()
+    }, [])
     return (
         <div className="py-6">
             <div className="flex gap-1 items-center cursor-pointer mb-4" onClick={() => router.push("/")}>
@@ -35,36 +34,36 @@ export default function WorkspacesView() {
             <Card>
                 <CardHeader className="flex justify-between items-center">
                     <div>
-                        <CardTitle>workspaces</CardTitle>
-                        <CardDescription>Manage your upcoming and past workspaces.</CardDescription>
+                        <CardTitle>Rooms</CardTitle>
+                        <CardDescription>Manage your upcoming and past rooms.</CardDescription>
                     </div>
                     <Button>
-                        <Link href="dashboard/create-event">Add Workspace</Link>
+                        <Link href="dashboard/create-event">Add Room</Link>
                     </Button>
                 </CardHeader>
                 <CardContent>
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead >Workspace Name</TableHead>
-                                <TableHead>Address</TableHead>
+                                <TableHead>Room Name</TableHead>
+                                <TableHead>Price Per Hour</TableHead>
                                 <TableHead>Actions</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {workspaces
-                                .filter((workspace) => typeof workspace._id === "string")
-                                .map((workspace) => (
-                                    <TableRow key={workspace._id}>
-                                        <TableCell className="font-medium">{workspace.name}</TableCell>
+                            {rooms
+                                .filter((room) => typeof room._id === "string")
+                                .map((room) => (
+                                    <TableRow key={room._id}>
+                                        <TableCell className="font-medium">{room.name}</TableCell>
                                         <TableCell>
-                                            {workspace.address}
+                                            {room.pricePerHour}
                                         </TableCell>
                                         <TableCell className="flex gap-2">
                                             <WorkspaceTableActions
-                                                item={workspace}
-                                                path="workspace"
-                                                deleteFn={deleteWorkspace}
+                                                item={room}
+                                                path="room"
+                                                deleteFn={deleteRoom}
                                             />
                                         </TableCell>
                                     </TableRow>

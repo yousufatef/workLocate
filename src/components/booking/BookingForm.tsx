@@ -1,16 +1,16 @@
 "use client"
 
-import type React from "react"
-
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { useUser } from "@clerk/nextjs"
+import { toast } from "sonner"
+import { Calendar, Clock, DollarSign, ArrowLeft } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Calendar, Clock, DollarSign, ArrowLeft } from "lucide-react"
 import { Room } from "@/types/rooms"
+import axios from "axios"
 
 interface BookingFormProps {
     room: Room
@@ -18,6 +18,10 @@ interface BookingFormProps {
 
 export function BookingForm({ room }: BookingFormProps) {
     const router = useRouter()
+    const { user } = useUser()
+    const mongoId = user?.publicMetadata.userMongoId
+    console.log("User:", mongoId);
+
     const [formData, setFormData] = useState({
         date: "",
         startTime: "",
@@ -29,18 +33,14 @@ export function BookingForm({ room }: BookingFormProps) {
 
     const calculateDuration = () => {
         if (!formData.startTime || !formData.endTime) return 0
-
         const start = new Date(`2000-01-01T${formData.startTime}`)
         const end = new Date(`2000-01-01T${formData.endTime}`)
-
         if (end <= start) return 0
-
-        return (end.getTime() - start.getTime()) / (1000 * 60 * 60) // hours
+        return (end.getTime() - start.getTime()) / (1000 * 60 * 60)
     }
 
     const calculateTotalPrice = () => {
-        const duration = calculateDuration()
-        return duration * room.pricePerHour
+        return calculateDuration() * room.pricePerHour
     }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -53,32 +53,35 @@ export function BookingForm({ room }: BookingFormProps) {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
+
+        if (!user) {
+            toast.error("Please log in to book a room.")
+            return
+        }
+
         setIsSubmitting(true)
 
         try {
-            // Replace with your actual booking API endpoint
-            // const response = await fetch('/api/bookings', {
-            //   method: 'POST',
-            //   headers: {
-            //     'Content-Type': 'application/json',
-            //   },
-            //   body: JSON.stringify({
-            //     roomId: room._id,
-            //     ...formData,
-            //     totalPrice: calculateTotalPrice(),
-            //   }),
-            // })
+            const duration = calculateDuration()
+            const totalPrice = calculateTotalPrice()
 
-            // Mock successful booking
-            await new Promise((resolve) => setTimeout(resolve, 2000))
+            const response = await axios.post(`https://worklocate-315a35b40e37.herokuapp.com/api/reservation/${room._id}/reserve`, {
+                seatsBooked: formData.attendees,
+                isPaid: false,
+                roomId: room._id,
+                customerId: mongoId,
+                date: formData.date,
+                startTime: formData.startTime,
+                endTime: formData.endTime,
+                duration,
+                totalPrice,
+            })
 
-            // Redirect to success page or back to rooms
-            router.push(
-                `/booking/success?roomId=${room._id}&date=${formData.date}&startTime=${formData.startTime}&endTime=${formData.endTime}`,
-            )
-        } catch (error) {
-            console.error("Booking failed:", error)
-            // Handle error (show toast, etc.)
+            toast.success("Room booked successfully!")
+            router.push(`/booking/success?id=${response.data}`)
+        } catch (err) {
+            console.error(err)
+            toast.error("Booking failed.")
         } finally {
             setIsSubmitting(false)
         }
@@ -94,8 +97,6 @@ export function BookingForm({ room }: BookingFormProps) {
 
     const duration = calculateDuration()
     const totalPrice = calculateTotalPrice()
-
-    // Get today's date for min date attribute
     const today = new Date().toISOString().split("T")[0]
 
     return (
@@ -175,19 +176,9 @@ export function BookingForm({ room }: BookingFormProps) {
                                 onChange={handleInputChange}
                                 required
                             />
-                            <p className="text-xs text-muted-foreground mt-1">Maximum capacity: {room.capacity} people</p>
-                        </div>
-
-                        <div>
-                            <Label htmlFor="notes">Additional Notes (Optional)</Label>
-                            <Textarea
-                                id="notes"
-                                name="notes"
-                                placeholder="Any special requirements or notes..."
-                                value={formData.notes}
-                                onChange={handleInputChange}
-                                rows={3}
-                            />
+                            <p className="text-xs text-muted-foreground mt-1">
+                                Maximum capacity: {room.capacity} people
+                            </p>
                         </div>
 
                         {duration > 0 && (
@@ -196,9 +187,7 @@ export function BookingForm({ room }: BookingFormProps) {
                                     <div className="space-y-2">
                                         <div className="flex justify-between text-sm">
                                             <span>Duration:</span>
-                                            <span className="font-medium">
-                                                {duration} hour{duration !== 1 ? "s" : ""}
-                                            </span>
+                                            <span className="font-medium">{duration} hour{duration !== 1 ? "s" : ""}</span>
                                         </div>
                                         <div className="flex justify-between text-sm">
                                             <span>Rate:</span>

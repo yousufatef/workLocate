@@ -19,12 +19,14 @@ import { DashboardNav } from "./_components/dashboard-nav"
 import { UsersView } from "./_components/users-view"
 import { ReservationView } from "./_components/reservations-view"
 import WorkspacesView from "./_components/workspace-view"
+import { OwnerView } from "./_components/owners-view"
+import RoomsView from "./_components/rooms-view"
 const LottieHandler = dynamic(() => import("@/components/common/LottieHandler"), {
   ssr: false, // disables server-side rendering
 })
 
 export default function Dashboard() {
-  const [activeView, setActiveView] = useState<"users" | "workspaces" | "reservations">("users")
+  const [activeView, setActiveView] = useState<"users" | "owners" | "workspaces" | "rooms" | "reservations">("users")
   const { isSignedIn, user, isLoaded } = useUser();
   if (!isLoaded) {
     return null
@@ -55,7 +57,9 @@ export default function Dashboard() {
               </header>
               <main className="flex-1 px-6">
                 {activeView === "users" && <UsersView />}
+                {activeView === "owners" && <OwnerView />}
                 {activeView === "workspaces" && <WorkspacesView />}
+                {activeView === "rooms" && <RoomsView />}
                 {activeView === "reservations" && <ReservationView />}
               </main>
             </div>

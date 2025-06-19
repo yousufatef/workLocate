@@ -1,12 +1,16 @@
+"use client"
+
 import Link from "next/link";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Calendar, Home, MapPin, Menu, Ticket } from "lucide-react";
 import { Button } from "../ui/button";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
 import { ModeToggle } from "./ModeToggle";
 
 
 const Header = () => {
+    const { user } = useUser();
+
     return (
         <header className="sticky top-0 z-40 border-b bg-background">
             <div className="container flex h-16 items-center justify-between py-4">
@@ -52,6 +56,23 @@ const Header = () => {
                                         <Ticket className="h-8 w-8" />
                                         <span>Services</span>
                                     </Link>
+                                    {(user && user.publicMetadata && (user.publicMetadata.role === "admin" || user.publicMetadata.role === "owner")) ? (
+                                        <Link
+                                            href="/dashboard"
+                                            className="flex items-center gap-2 text-muted-foreground hover:text-foreground text-xl font-semibold mb-6"
+                                        >
+                                            <Calendar className="h-6 w-6" />
+                                            <span>Dashboard</span>
+                                        </Link>
+                                    ) : (
+                                        <Link
+                                            href="/my-bookings"
+                                            className="flex items-center gap-2 text-muted-foreground hover:text-foreground text-xl font-semibold mb-6"
+                                        >
+                                            <Ticket className="h-6 w-6" />
+                                            <span>My Bookings</span>
+                                        </Link>
+                                    )}
                                     <Link
                                         href="/contact"
                                         className="flex items-center gap-2 text-muted-foreground hover:text-foreground text-xl font-semibold mb-6"
@@ -90,7 +111,21 @@ const Header = () => {
                     >
                         Services
                     </Link>
-
+                    {(user && user.publicMetadata && (user.publicMetadata.role === "admin" || user.publicMetadata.role === "owner")) ? (
+                        <Link
+                            href="/dashboard"
+                            className="text-sm font-medium text-muted-foreground hover:text-foreground"
+                        >
+                            <span>Dashboard</span>
+                        </Link>
+                    ) : (
+                        <Link
+                            href="/my-bookings"
+                            className="text-sm font-medium text-muted-foreground hover:text-foreground"
+                        >
+                            <span>My Bookings</span>
+                        </Link>
+                    )}
                     <Link
                         href="/contact"
                         className="text-sm font-medium text-muted-foreground hover:text-foreground"
