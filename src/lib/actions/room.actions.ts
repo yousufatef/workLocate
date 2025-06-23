@@ -14,12 +14,42 @@ export async function getAllRooms(): Promise<{ rooms: Room[] }> {
         return { rooms: [] };
     }
 }
-export async function deleteRoom({ id }: { id: string }) {
+
+export async function getRoomById(roomId: string): Promise<Room | null> {
+    if (!roomId || typeof roomId !== "string") {
+        console.error("Invalid room ID type");
+        return null;
+    }
+
     try {
-        const res = await axios.delete(`https://worklocate-315a35b40e37.herokuapp.com/api/room/6807bb4683f409bf85c9c6dc/6807bbaa1849180415b2f081/${id}`);
+        const response = await axios.get<{ room?: Room }>(
+            `https://worklocate-315a35b40e37.herokuapp.com/api/room/${roomId}`
+        );
+
+        return response.data.room ?? null;
+    } catch (error) {
+        handleError(error);
+        return null;
+    }
+}
+
+
+export async function deleteRoom({ workspaceId, roomId }: { workspaceId: string; roomId: string }) {
+    try {
+        const res = await axios.delete(`https://worklocate-315a35b40e37.herokuapp.com/api/room/${workspaceId}/${roomId}`);
         return res.data;
     } catch (error) {
         handleError(error);
         return null;
     }
 }
+export const updateRoom = async ({ values, roomId }: { values: Room; roomId: string }) => {
+    try {
+        console.log("Updating room with values:", values, "and roomId:", roomId);
+        const res = await axios.put(`https://worklocate-315a35b40e37.herokuapp.com/api/room/${roomId}`, values);
+        return res.data;
+    } catch (error) {
+        handleError(error);
+        return null;
+    }
+};

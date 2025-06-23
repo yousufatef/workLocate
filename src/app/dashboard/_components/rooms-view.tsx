@@ -2,14 +2,13 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { useEffect, useState } from "react"
-// import { format } from "date-fns"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft } from "lucide-react"
 import { useRouter } from "next/navigation"
-import WorkspaceTableActions from "./WorkspaceTableActions"
-import { deleteRoom, getAllRooms } from "@/lib/actions/room.actions"
+import { getAllRooms } from "@/lib/actions/room.actions"
 import { Room } from "@/types/rooms"
+import RoomTableActions from "./RoomTableActions"
 
 
 
@@ -60,10 +59,8 @@ export default function RoomsView() {
                                             {room.pricePerHour}
                                         </TableCell>
                                         <TableCell className="flex gap-2">
-                                            <WorkspaceTableActions
-                                                item={room}
-                                                path="room"
-                                                deleteFn={deleteRoom}
+                                            <RoomTableActions
+                                                roomId={room._id}
                                             />
                                         </TableCell>
                                     </TableRow>
@@ -75,3 +72,4 @@ export default function RoomsView() {
         </div>
     )
 }
+

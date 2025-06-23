@@ -74,7 +74,7 @@ export function RoomsContainer({ id }: RoomsContainerProps) {
         (room) =>
           room.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
           (room.workspaceId?.name && room.workspaceId.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
-          room.amenities.some((amenity: string) => amenity.toLowerCase().includes(searchTerm.toLowerCase())),
+          room.amenities?.some((amenity: string) => amenity.toLowerCase().includes(searchTerm.toLowerCase())),
       )
     }
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {
   Sidebar,
   SidebarContent,
@@ -21,16 +21,28 @@ import { ReservationView } from "./_components/reservations-view"
 import WorkspacesView from "./_components/workspace-view"
 import { OwnerView } from "./_components/owners-view"
 import RoomsView from "./_components/rooms-view"
+
 const LottieHandler = dynamic(() => import("@/components/common/LottieHandler"), {
-  ssr: false, // disables server-side rendering
+  ssr: false,
 })
 
 export default function Dashboard() {
-  const [activeView, setActiveView] = useState<"users" | "owners" | "workspaces" | "rooms" | "reservations">("users")
-  const { isSignedIn, user, isLoaded } = useUser();
-  if (!isLoaded) {
-    return null
+  const [mounted, setMounted] = useState(false)
+  const [activeView, setActiveView] = useState<
+    "users" | "owners" | "workspaces" | "rooms" | "reservations"
+  >("users")
+
+  const { isSignedIn, user, isLoaded } = useUser()
+
+  // ✅ نمنع الريندر لحد ما يتأكد إنه mounted
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted || !isLoaded) {
+    return null // ممكن تحط Spinner هنا لو حبيت
   }
+
   if (isSignedIn && user.publicMetadata.role === "admin") {
     return (
       <SidebarProvider>
@@ -44,16 +56,14 @@ export default function Dashboard() {
             </SidebarHeader>
             <SidebarContent>
               <DashboardNav onNavigate={setActiveView} activeItem={activeView} />
-
             </SidebarContent>
-
             <SidebarRail />
           </Sidebar>
+
           <SidebarInset>
             <div className="flex flex-col w-full">
               <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background px-6">
                 <SidebarTrigger />
-
               </header>
               <main className="flex-1 px-6">
                 {activeView === "users" && <UsersView />}
@@ -64,25 +74,19 @@ export default function Dashboard() {
               </main>
             </div>
           </SidebarInset>
-
         </div>
       </SidebarProvider>
     )
-  } else {
-    return (
-      <div className="container">
-        <div
-          className="flex flex-col items-center"
-          style={{ marginTop: "15%" }}
-        >
-          <LottieHandler type="notFound" />
-          <Link href="/" replace={true} className="underline">
-            How about going back to safety?
-          </Link>
-        </div>
-      </div>
-    )
   }
 
-
+  return (
+    <div className="container">
+      <div className="flex flex-col items-center mt-32">
+        <LottieHandler type="notFound" />
+        <Link href="/" replace className="underline">
+          How about going back to safety?
+        </Link>
+      </div>
+    </div>
+  )
 }

@@ -10,17 +10,19 @@ export interface Workspace {
 }
 
 export interface Room {
-    _id: string
-    name: string
-    capacity: number
-    pricePerHour: number
-    availableSeats: number
-    availabilityStatus: "available" | "unavailable" | "occupied"
-    type: string
-    workspaceId: Workspace
-    amenities: string[]
-    __v: number
-    createdAt: string
-    updatedAt: string
-    images: string[]
+    _id?: string
+    name?: string
+    capacity?: number
+    pricePerHour?: number
+    availableSeats?: number
+    availabilityStatus?: "available" | "unavailable" | "occupied"
+    type?: "personal" | "meeting" | "shared"
+    workspaceId?: string
+    amenities?: string[]
+    __v?: number
+    createdAt?: string
+    updatedAt?: string
+    images?: string[]
+    isBooked?: boolean
+    duration?: number
 }

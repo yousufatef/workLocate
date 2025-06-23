@@ -65,7 +65,7 @@ export function BookingForm({ room }: BookingFormProps) {
             const duration = calculateDuration()
             const totalPrice = calculateTotalPrice()
 
-            const response = await axios.post(`https://worklocate-315a35b40e37.herokuapp.com/api/reservation/${room._id}/reserve`, {
+            const response = await axios.post(`https://worklocate-315a35b40e37.herokuapp.com/api/reservation/reserve`, {
                 seatsBooked: formData.attendees,
                 isPaid: false,
                 roomId: room._id,

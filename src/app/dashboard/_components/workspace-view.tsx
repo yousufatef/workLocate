@@ -9,7 +9,7 @@ import { ChevronLeft } from "lucide-react"
 import { useRouter } from "next/navigation"
 import WorkspaceTableActions from "./WorkspaceTableActions"
 import { IWorkspace } from "@/types/workspace"
-import { deleteWorkspace, getAllWorkspaces } from "@/lib/actions/Workspace.actions"
+import { getAllWorkspaces } from "@/lib/actions/Workspace.actions"
 
 
 
@@ -24,7 +24,7 @@ export default function WorkspacesView() {
 
         }
         getWorkspaces()
-    })
+    }, [])
     return (
         <div className="py-6">
             <div className="flex gap-1 items-center cursor-pointer mb-4" onClick={() => router.push("/")}>
@@ -39,7 +39,7 @@ export default function WorkspacesView() {
                         <CardDescription>Manage your upcoming and past workspaces.</CardDescription>
                     </div>
                     <Button>
-                        <Link href="dashboard/create-event">Add Workspace</Link>
+                        <Link href="dashboard/create-workspace">Add Workspace</Link>
                     </Button>
                 </CardHeader>
                 <CardContent>
@@ -62,10 +62,9 @@ export default function WorkspacesView() {
                                         </TableCell>
                                         <TableCell className="flex gap-2">
                                             <WorkspaceTableActions
-                                                item={workspace}
-                                                path="workspace"
-                                                deleteFn={deleteWorkspace}
+                                                workspaceId={workspace._id}
                                             />
+
                                         </TableCell>
                                     </TableRow>
                                 ))}

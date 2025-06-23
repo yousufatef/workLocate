@@ -64,15 +64,15 @@ const Header = () => {
                                             <Calendar className="h-6 w-6" />
                                             <span>Dashboard</span>
                                         </Link>
-                                    ) : (
+                                    ) : (user && user.publicMetadata && user.publicMetadata.role === "user") ? (
                                         <Link
                                             href="/my-bookings"
                                             className="flex items-center gap-2 text-muted-foreground hover:text-foreground text-xl font-semibold mb-6"
                                         >
-                                            <Ticket className="h-6 w-6" />
+                                            <Calendar className="h-6 w-6" />
                                             <span>My Bookings</span>
                                         </Link>
-                                    )}
+                                    ) : null}
                                     <Link
                                         href="/contact"
                                         className="flex items-center gap-2 text-muted-foreground hover:text-foreground text-xl font-semibold mb-6"

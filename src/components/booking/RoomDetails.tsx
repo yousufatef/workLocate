@@ -10,15 +10,18 @@ interface RoomDetailsProps {
 }
 
 export function RoomDetails({ room }: RoomDetailsProps) {
-    const formatDate = (dateString: string) => {
+    const formatDate = (dateString?: string) => {
+        if (!dateString) {
+            return "Unknown date";
+        }
         try {
             return new Date(dateString).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
-            })
+            });
         } catch {
-            return "Unknown date"
+            return "Unknown date";
         }
     }
 
@@ -72,7 +75,7 @@ export function RoomDetails({ room }: RoomDetailsProps) {
                     <div>
                         <h4 className="font-medium mb-2">Amenities</h4>
                         <div className="flex flex-wrap gap-2">
-                            {room.amenities.map((amenity, index) => (
+                            {room?.amenities?.map((amenity, index) => (
                                 <Badge key={index} variant="secondary">
                                     {amenity}
                                 </Badge>
