@@ -16,13 +16,20 @@ interface BookingFormProps {
     room: Room
 }
 
+interface FormDataType {
+    date: string
+    startTime: string
+    endTime: string
+    attendees: number
+    notes: string
+}
+
 export function BookingForm({ room }: BookingFormProps) {
     const router = useRouter()
     const { user } = useUser()
-    const mongoId = user?.publicMetadata.userMongoId
-    console.log("User:", mongoId);
+    const mongoId = user?.publicMetadata?.userMongoId
 
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<FormDataType>({
         date: "",
         startTime: "",
         endTime: "",
@@ -31,7 +38,7 @@ export function BookingForm({ room }: BookingFormProps) {
     })
     const [isSubmitting, setIsSubmitting] = useState(false)
 
-    const calculateDuration = () => {
+    const calculateDuration = (): number => {
         if (!formData.startTime || !formData.endTime) return 0
         const start = new Date(`2000-01-01T${formData.startTime}`)
         const end = new Date(`2000-01-01T${formData.endTime}`)
@@ -39,16 +46,15 @@ export function BookingForm({ room }: BookingFormProps) {
         return (end.getTime() - start.getTime()) / (1000 * 60 * 60)
     }
 
-const calculateTotalPrice = (): number => {
-    return calculateDuration() * (room?.pricePerHour ?? 0);
-}
-
+    const calculateTotalPrice = (): number => {
+        return calculateDuration() * (room?.pricePerHour ?? 0)
+    }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target
         setFormData((prev) => ({
             ...prev,
-            [name]: value,
+            [name]: name === "attendees" ? parseInt(value) || 1 : value,
         }))
     }
 
