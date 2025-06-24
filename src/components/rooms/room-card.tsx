@@ -15,7 +15,7 @@ interface RoomCardProps {
 export function RoomCard({ room }: RoomCardProps) {
     const router = useRouter()
 
-    const getStatusColor = (status: string) => {
+    const getStatusColor = (status?: string) => {
         switch (status) {
             case "available":
                 return "bg-green-100 text-green-800 hover:bg-green-200"
@@ -28,7 +28,8 @@ export function RoomCard({ room }: RoomCardProps) {
         }
     }
 
-    const formatDate = (dateString: string) => {
+    const formatDate = (dateString?: string) => {
+        if (!dateString) return "Unknown date"
         try {
             return new Date(dateString).toLocaleDateString("en-US", {
                 year: "numeric",
@@ -41,7 +42,7 @@ export function RoomCard({ room }: RoomCardProps) {
     }
 
     const handleBookRoom = () => {
-        router.push(`/booking/${room._id}`)
+        if (room._id) router.push(`/booking/${room._id}`)
     }
 
     const isAvailable = room.availabilityStatus === "available"
@@ -56,11 +57,11 @@ export function RoomCard({ room }: RoomCardProps) {
                         <CardTitle className="text-lg font-semibold line-clamp-2 mb-2">{room.name}</CardTitle>
                         <div className="flex items-center text-sm text-muted-foreground">
                             <MapPin className="w-4 h-4 mr-1" />
-                            {room.workspaceId?.name || "Unknown workspace"}
+                            Workspace ID: {room.workspaceId || "N/A"}
                         </div>
                     </div>
                     <Badge className={getStatusColor(room.availabilityStatus)} variant="secondary">
-                        {room.availabilityStatus}
+                        {room.availabilityStatus || "unknown"}
                     </Badge>
                 </div>
             </CardHeader>
@@ -70,12 +71,12 @@ export function RoomCard({ room }: RoomCardProps) {
                     <div className="flex items-center text-sm">
                         <Users className="w-4 h-4 mr-1" />
                         <span>
-                            {room.availableSeats || 0}/{room.capacity || 0} seats
+                            {room.availableSeats ?? 0}/{room.capacity ?? 0} seats
                         </span>
                     </div>
                     <div className="flex items-center text-lg font-semibold text-green-600">
                         <DollarSign className="w-4 h-4" />
-                        {room.pricePerHour || 0}/hr
+                        {room.pricePerHour ?? 0}/hr
                     </div>
                 </div>
 
@@ -99,14 +100,9 @@ export function RoomCard({ room }: RoomCardProps) {
 
                 <div className="flex items-center text-xs text-muted-foreground pt-2 border-t">
                     <Calendar className="w-3 h-3 mr-1" />
-                    Updated: {formatDate(room.updatedAt || "")}
+                    Updated: {formatDate(room.updatedAt)}
                 </div>
 
-                <div className="text-xs text-muted-foreground">
-                    Owner: {room.workspaceId?.ownerId?.firstName || ""} {room.workspaceId?.ownerId?.lastName || ""}
-                </div>
-
-                {/* Book Button */}
                 <div className="pt-4">
                     <Button
                         onClick={handleBookRoom}
