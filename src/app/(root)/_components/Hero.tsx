@@ -7,7 +7,7 @@ function Hero() {
         <div className="w-full relative flex flex-col justify-center items-center py-[150px] md:py-[200px] overflow-hidden">
             {/* Background Image */}
             <Image
-                src="/assets/images/hero.png"
+                src="/assets/images/heroImage.jpg"
                 alt="Hero background"
                 layout="fill"
                 objectFit="cover"
