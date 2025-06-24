@@ -10,9 +10,7 @@ interface RoomDetailsProps {
 
 export function RoomDetails({ room }: RoomDetailsProps) {
     const formatDate = (dateString?: string) => {
-        if (!dateString) {
-            return "Unknown date";
-        }
+        if (!dateString) return "Unknown date";
         try {
             return new Date(dateString).toLocaleDateString("en-US", {
                 year: "numeric",
