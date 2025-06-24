@@ -22,10 +22,11 @@ const Workspace = async ({ params }: { params: Promise<{ id: string }> }) => {
                     </div>
                 </div>
                 <div className="flex flex-col justify-center items-center gap-2">
-                    <Button className="w-full md:w-auto bg-primary cursor-pointer transition-colors duration-300 ease-in-out"
-                    >
-                        <Link href={`/rooms/${id}`}>Show Rooms</Link>
-                    </Button>
+                    <Link href={`/rooms/${id}`} className="w-full md:w-auto bg-primary cursor-pointer transition-colors duration-300 ease-in-out">
+                        <Button className="w-full md:w-auto bg-primary cursor-pointer transition-colors duration-300 ease-in-out">
+                            Show Rooms
+                        </Button>
+                    </Link>
                     <StarRating rate={workingSpace.averageRating} />
                 </div>
             </div>

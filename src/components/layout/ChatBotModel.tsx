@@ -43,8 +43,8 @@ const ChatBotModal = () => {
         <div className="fixed right-6 bottom-8 z-50">
             <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
                 <AlertDialogTrigger asChild>
-                    <span className="bg-primary w-18 h-18 rounded-full flex items-center justify-center cursor-pointer shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out">
-                        <Bot size={42} className="text-primary-foreground" />
+                    <span className="bg-primary w-14 h-14 rounded-full flex items-center justify-center cursor-pointer shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out">
+                        <Bot size={38} className="text-primary-foreground" />
                     </span>
                 </AlertDialogTrigger>
                 <AlertDialogContent className="max-w-md">
