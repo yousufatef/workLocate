@@ -6,7 +6,6 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
 export const metadata: Metadata = {
     title: "Contact Us",
@@ -171,57 +170,6 @@ export default function ContactPage() {
                 </div>
             </div>
 
-
-            {/* FAQ Section */}
-            <div className="py-16 md:py-20">
-                <div className="container mx-auto px-4 max-w-4xl">
-                    <Accordion type="single" collapsible className="max-w-[600px] m-auto mb-4">
-                        <AccordionItem value="item-1" className="border border-gray-300 rounded-lg p-4 bg-primary shadow-sm hover:shadow-md transition-shadow">
-                            <AccordionTrigger className="text-xl md:text-2xl font-bold cursor-pointer flex items-center justify-between w-full text-left gap-4">
-                                <span>Frequently Asked Questions</span>
-
-                            </AccordionTrigger>
-                            <AccordionContent className="text-primary-foreground animate-accordion-down">
-                                Find answers to common questions about our workspaces and services. Our team has compiled the most frequent inquiries to help you get the information you need quickly.
-                            </AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
-                    <Accordion type="single" collapsible className="max-w-[600px] m-auto mb-4">
-                        <AccordionItem value="item-1" className="border border-gray-300 rounded-lg p-4 bg-primary shadow-sm hover:shadow-md transition-shadow">
-                            <AccordionTrigger className="text-xl md:text-2xl font-bold cursor-pointer flex items-center justify-between w-full text-left gap-4">
-                                <span>Frequently Asked Questions</span>
-
-                            </AccordionTrigger>
-                            <AccordionContent className="text-primary-foreground animate-accordion-down">
-                                Find answers to common questions about our workspaces and services. Our team has compiled the most frequent inquiries to help you get the information you need quickly.
-                            </AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
-                    <Accordion type="single" collapsible className="max-w-[600px] m-auto mb-4">
-                        <AccordionItem value="item-1" className="border border-gray-300 rounded-lg p-4 bg-primary shadow-sm hover:shadow-md transition-shadow">
-                            <AccordionTrigger className="text-xl md:text-2xl font-bold cursor-pointer flex items-center justify-between w-full text-left gap-4">
-                                <span>Frequently Asked Questions</span>
-
-                            </AccordionTrigger>
-                            <AccordionContent className="text-primary-foreground animate-accordion-down">
-                                Find answers to common questions about our workspaces and services. Our team has compiled the most frequent inquiries to help you get the information you need quickly.
-                            </AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
-                    <Accordion type="single" collapsible className="max-w-[600px] m-auto mb-4">
-                        <AccordionItem value="item-1" className="border border-gray-300 rounded-lg p-4 bg-primary shadow-sm hover:shadow-md transition-shadow">
-                            <AccordionTrigger className="text-xl md:text-2xl font-bold cursor-pointer flex items-center justify-between w-full text-left gap-4">
-                                <span>Frequently Asked Questions</span>
-
-                            </AccordionTrigger>
-                            <AccordionContent className="text-primary-foreground animate-accordion-down">
-                                Find answers to common questions about our workspaces and services. Our team has compiled the most frequent inquiries to help you get the information you need quickly.
-                            </AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
-
-                </div>
-            </div>
         </div>
     )
 }

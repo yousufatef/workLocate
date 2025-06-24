@@ -49,13 +49,7 @@ const Header = () => {
                                         <Calendar className="h-8 w-8" />
                                         <span>About</span>
                                     </Link>
-                                    <Link
-                                        href="/services"
-                                        className="flex items-center gap-2 text-muted-foreground hover:text-foreground text-xl font-semibold mb-6"
-                                    >
-                                        <Ticket className="h-8 w-8" />
-                                        <span>Services</span>
-                                    </Link>
+
                                     {(user && user.publicMetadata && (user.publicMetadata.role === "admin" || user.publicMetadata.role === "owner")) ? (
                                         <Link
                                             href="/dashboard"
@@ -105,12 +99,7 @@ const Header = () => {
                     >
                         About
                     </Link>
-                    <Link
-                        href="/services"
-                        className="text-sm font-medium text-muted-foreground hover:text-foreground"
-                    >
-                        Services
-                    </Link>
+
                     {(user && user.publicMetadata && (user.publicMetadata.role === "admin" || user.publicMetadata.role === "owner")) ? (
                         <Link
                             href="/dashboard"
