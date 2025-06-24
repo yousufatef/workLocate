@@ -11,7 +11,7 @@ interface RoomsFiltersProps {
   setStatusFilter: (status: string) => void
   typeFilter: string
   setTypeFilter: (type: string) => void
-  uniqueTypes: string[]
+  uniqueTypes: ("personal" | "meeting" | "shared")[]
   filteredCount: number
   totalCount: number
 }

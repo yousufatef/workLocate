@@ -8,7 +8,6 @@ import { RoomsFilters } from "./rooms-filters"
 import { RoomsGrid } from "./rooms-grid"
 import { RoomsEmpty } from "./rooms-empty"
 
-
 interface RoomsContainerProps {
   id: string
 }
@@ -47,7 +46,7 @@ export function RoomsContainer({ id }: RoomsContainerProps) {
         }
 
         const data = await response.json()
-        const roomsData = data.rooms || []
+        const roomsData: Room[] = data.rooms || []
 
         setRooms(roomsData)
         setFilteredRooms(roomsData)
@@ -64,26 +63,25 @@ export function RoomsContainer({ id }: RoomsContainerProps) {
     fetchRooms()
   }, [id])
 
-  // Filter rooms based on search term and filters
   useEffect(() => {
     let filtered = rooms
 
-    // Search filter
     if (searchTerm) {
+      const lowerSearch = searchTerm.toLowerCase()
       filtered = filtered.filter(
         (room) =>
-          room.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          (room.workspaceId?.name && room.workspaceId.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
-          room.amenities?.some((amenity: string) => amenity.toLowerCase().includes(searchTerm.toLowerCase())),
+          room.name?.toLowerCase().includes(lowerSearch) ||
+          room.workspaceId?.toLowerCase().includes(lowerSearch) ||
+          room.amenities?.some((amenity) =>
+            amenity.toLowerCase().includes(lowerSearch)
+          )
       )
     }
 
-    // Status filter
     if (statusFilter !== "all") {
       filtered = filtered.filter((room) => room.availabilityStatus === statusFilter)
     }
 
-    // Type filter
     if (typeFilter !== "all") {
       filtered = filtered.filter((room) => room.type === typeFilter)
     }
@@ -106,9 +104,17 @@ export function RoomsContainer({ id }: RoomsContainerProps) {
     return <RoomsError error={error} />
   }
 
-  const uniqueTypes = Array.from(new Set(rooms.map((room) => room.type)))
+  // ✅ Ensure no undefined values and make TypeScript happy
+  const uniqueTypes: ("personal" | "meeting" | "shared")[] = Array.from(
+    new Set(
+      rooms
+        .map((room) => room.type)
+        .filter((type): type is "personal" | "meeting" | "shared" => type !== undefined)
+    )
+  )
+
   const availableCount = rooms.filter((room) => room.availabilityStatus === "available").length
-  const totalCapacity = rooms.reduce((sum, room) => sum + room.capacity, 0)
+  const totalCapacity = rooms.reduce((sum, room) => sum + (room.capacity ?? 0), 0)
 
   return (
     <>
