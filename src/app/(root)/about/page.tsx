@@ -9,6 +9,7 @@ import {
     Search,
     Calendar,
 } from "lucide-react"
+import Link from "next/link"
 
 export default function AboutPage() {
     const services = [
@@ -62,12 +63,12 @@ export default function AboutPage() {
                     availability, and intelligent recommendations.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Button size="lg" className="bg-primary">
-                        Get Started
-                    </Button>
-                    <Button size="lg" variant="outline">
-                        Learn More
-                    </Button>
+                    <Link href="/">
+                        <Button size="lg" className="bg-primary">
+                            Get Started
+                        </Button>
+                    </Link>
+
                 </div>
             </section>
 
