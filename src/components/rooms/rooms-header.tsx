@@ -12,8 +12,8 @@ export function RoomsHeader({ rooms, availableCount, totalCapacity }: RoomsHeade
         <div className="mb-8">
             <h1 className="text-3xl font-bold mb-2">Workspace Rooms</h1>
             <p className="text-muted-foreground mb-4">
-                {rooms.length > 0 && rooms[0].workspaceId?.name
-                    ? `Rooms in ${rooms[0].workspaceId.name}`
+                {rooms.length > 0 && rooms[0].workspaceId
+                    ? `Rooms in ${rooms[0].workspaceId}`
                     : "Discover and book the perfect workspace for your needs"}
             </p>
 
