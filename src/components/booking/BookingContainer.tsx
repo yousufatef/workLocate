@@ -41,15 +41,8 @@ export function BookingContainer({ roomId }: BookingContainerProps) {
                     pricePerHour: 215,
                     availableSeats: 7,
                     availabilityStatus: "available",
-                    type: "shared space",
-                    workspaceId: {
-                        _id: "6807bb4783f409bf85c9c73b",
-                        name: "Abshire, Kling and Schaefer Workspace",
-                        ownerId: {
-                            firstName: "Ahmed",
-                            lastName: "Fathy",
-                        },
-                    },
+                    type: "shared",
+                    workspaceId: "6807bb4783f409bf85c9c73b",
                     amenities: ["Printer", "Coffee", "Meeting Room"],
                     __v: 1,
                     createdAt: "2025-04-22T15:54:31.467Z",
