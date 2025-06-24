@@ -56,17 +56,19 @@ export default function AboutPage() {
             {/* Hero Section */}
             <section className="py-8 px-4 sm:px-6 lg:px-8" >
 
-                <h1 className="text-primary text-3xl md:text-5xl font-bold text-center mb-6">Find Your Perfect
-                    Workspace</h1>
-                <p className="text-secondary-foreground mb-8 max-w-3xl text-center">
-                    Simplifying the process of finding and reserving co-working spaces with modern technology, real-time
-                    availability, and intelligent recommendations.
-                </p>
-                <Link href="/" className="w-full md:w-auto">
-                    <Button size="lg" className="bg-primary">
-                        Get Started
-                    </Button>
-                </Link>
+                <div className="flex flex-col justify-center items-center">
+                    <h1 className="text-primary text-3xl md:text-5xl font-bold text-center mb-6">Find Your Perfect
+                        Workspace</h1>
+                    <p className="text-secondary-foreground mb-8 max-w-3xl text-center">
+                        Simplifying the process of finding and reserving co-working spaces with modern technology, real-time
+                        availability, and intelligent recommendations.
+                    </p>
+                    <Link href="/" >
+                        <Button size="lg" className="bg-primary">
+                            Get Started
+                        </Button>
+                    </Link>
+                </div>
 
             </section>
 
