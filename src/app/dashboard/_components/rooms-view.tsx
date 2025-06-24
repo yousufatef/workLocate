@@ -51,16 +51,16 @@ export default function RoomsView() {
                         </TableHeader>
                         <TableBody>
                             {rooms
-                                .filter((room) => typeof room._id === "string")
+                                .filter((room) => typeof room._id === "string" && room._id !== undefined)
                                 .map((room) => (
-                                    <TableRow key={room._id}>
+                                    <TableRow key={room._id as string}>
                                         <TableCell className="font-medium">{room.name}</TableCell>
                                         <TableCell>
                                             {room.pricePerHour}
                                         </TableCell>
                                         <TableCell className="flex gap-2">
                                             <RoomTableActions
-                                                roomId={room._id}
+                                                roomId={room._id as string}
                                             />
                                         </TableCell>
                                     </TableRow>
