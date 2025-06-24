@@ -47,6 +47,15 @@ export function RoomCard({ room }: RoomCardProps) {
 
     const isAvailable = room.availabilityStatus === "available"
 
+    // 🔧 التأكد من عرض string فقط في workspaceId
+    type WorkspaceIdObj = { name?: string; _id?: string }
+    const displayWorkspaceId =
+        typeof room.workspaceId === "string"
+            ? room.workspaceId
+            : typeof room.workspaceId === "object" && room.workspaceId !== null
+                ? (room.workspaceId as WorkspaceIdObj).name || (room.workspaceId as WorkspaceIdObj)._id || "N/A"
+                : "N/A"
+
     return (
         <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
             <ImageCarousel images={room.images || []} alt={room.name || "Room"} />
@@ -54,10 +63,12 @@ export function RoomCard({ room }: RoomCardProps) {
             <CardHeader>
                 <div className="flex items-start justify-between">
                     <div className="flex-1">
-                        <CardTitle className="text-lg font-semibold line-clamp-2 mb-2">{room.name}</CardTitle>
+                        <CardTitle className="text-lg font-semibold line-clamp-2 mb-2">
+                            {room.name}
+                        </CardTitle>
                         <div className="flex items-center text-sm text-muted-foreground">
                             <MapPin className="w-4 h-4 mr-1" />
-                            Workspace ID: {room.workspaceId || "N/A"}
+                            Workspace ID: {displayWorkspaceId}
                         </div>
                     </div>
                     <Badge className={getStatusColor(room.availabilityStatus)} variant="secondary">
