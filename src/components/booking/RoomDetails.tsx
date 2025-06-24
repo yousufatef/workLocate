@@ -4,7 +4,6 @@ import { Users, DollarSign, MapPin, Building } from "lucide-react"
 import { ImageCarousel } from "../rooms/image-carousel"
 import { Room } from "@/types/rooms"
 
-
 interface RoomDetailsProps {
     room: Room
 }
@@ -32,11 +31,12 @@ export function RoomDetails({ room }: RoomDetailsProps) {
                     <CardTitle className="text-2xl">{room.name}</CardTitle>
                     <div className="flex items-center text-muted-foreground">
                         <MapPin className="w-4 h-4 mr-1" />
-                        {room.workspaceId?.name}
+                        {/* Display workspace ID directly */}
+                        {room.workspaceId}
                     </div>
                 </CardHeader>
                 <CardContent>
-                    <ImageCarousel images={room.images || []} alt={room.name} />
+                    <ImageCarousel images={room.images || []} alt={room.name || "Room image"} />
                 </CardContent>
             </Card>
 
@@ -81,13 +81,6 @@ export function RoomDetails({ room }: RoomDetailsProps) {
                                 </Badge>
                             ))}
                         </div>
-                    </div>
-
-                    <div>
-                        <h4 className="font-medium mb-2">Workspace Owner</h4>
-                        <p className="text-sm text-muted-foreground">
-                            {room.workspaceId?.ownerId?.firstName} {room.workspaceId?.ownerId?.lastName}
-                        </p>
                     </div>
 
                     <div>
