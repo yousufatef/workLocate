@@ -40,7 +40,7 @@ export function BookingForm({ room }: BookingFormProps) {
     }
 
     const calculateTotalPrice = () => {
-        return calculateDuration() * (room.pricePerHour ?? 0)
+        return calculateDuration() * (room?.pricePerHour ?? 0);
     }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
