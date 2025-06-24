@@ -62,14 +62,12 @@ export default function AboutPage() {
                     Simplifying the process of finding and reserving co-working spaces with modern technology, real-time
                     availability, and intelligent recommendations.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Link href="/">
-                        <Button size="lg" className="bg-primary">
-                            Get Started
-                        </Button>
-                    </Link>
+                <Link href="/" className="w-full md:w-auto">
+                    <Button size="lg" className="bg-primary">
+                        Get Started
+                    </Button>
+                </Link>
 
-                </div>
             </section>
 
 
