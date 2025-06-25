@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { SearchBar } from "@/components/common/SearchBar";
-import { Suspense } from "react";
+// import { SearchBar } from "@/components/common/SearchBar";
+// import { Suspense } from "react";
 
 function Hero() {
     return (
@@ -26,9 +26,9 @@ function Hero() {
                     Find your ideal workspace with our diverse offerings.
                 </p>
 
-                <Suspense>
+                {/* <Suspense>
                     <SearchBar />
-                </Suspense>
+                </Suspense> */}
             </div>
         </div>
     );

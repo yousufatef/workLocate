@@ -1,17 +1,82 @@
 "use client"
 
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
+import { useEffect, useState } from "react"
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from "@/components/ui/carousel"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import Autoplay from "embla-carousel-autoplay"
 import { useRouter } from "next/navigation"
 import { Star } from "lucide-react"
-import { useWorkspaces } from "./useWorkspaces" 
+import { IWorkspace } from "@/types/workspace"
 
 export default function WorkspaceCarousel() {
-    const { workspaces, loading, error, refetch } = useWorkspaces()
     const router = useRouter()
+    const [workspaces, setWorkspaces] = useState<IWorkspace[]>([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState("")
+
+    const fetchRecommendedWorkspaces = async () => {
+        try {
+            setLoading(true)
+            setError("")
+
+            if (!navigator.geolocation) {
+                throw new Error("Geolocation is not supported by your browser.")
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                async (position) => {
+                    const { latitude, longitude } = position.coords
+
+                    console.log("Location:", latitude, longitude)
+
+                    const res = await fetch(
+                        "https://recommendation-system-production-143e.up.railway.app/recommend",
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({ latitude, longitude }),
+                        }
+                    )
+
+                    if (!res.ok) {
+                        const errorText = await res.text()
+                        throw new Error(`HTTP ${res.status}: ${errorText}`)
+                    }
+
+                    const data = await res.json()
+                    setWorkspaces(data || [])
+                    setLoading(false)
+                },
+                (geoError) => {
+                    console.error("Geolocation error:", geoError)
+                    setError("Failed to get your location.")
+                    setLoading(false)
+                }
+            )
+        } catch (err: unknown) {
+            console.error("Error:", err)
+            if (err instanceof Error) {
+                setError(err.message)
+            } else {
+                setError("Something went wrong")
+            }
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => {
+        fetchRecommendedWorkspaces()
+    }, [])
 
     if (loading) {
         return (
@@ -24,8 +89,8 @@ export default function WorkspaceCarousel() {
     if (error) {
         return (
             <div className="flex flex-col items-center justify-center p-8 space-y-4">
-                <p className="text-red-500">{error}</p>
-                <Button onClick={refetch} variant="outline">
+                <p className="text-red-500 text-center">{error}</p>
+                <Button onClick={fetchRecommendedWorkspaces} variant="outline">
                     Try Again
                 </Button>
             </div>
@@ -52,11 +117,7 @@ export default function WorkspaceCarousel() {
                         <Card className="h-full">
                             <div className="p-2">
                                 <div className="relative">
-                                    <img
-                                        src="/placeholder.svg?height=200&width=300"
-                                        className="object-cover w-full h-48 rounded-md"
-                                        alt={workspace.name || "Workspace"}
-                                    />
+
                                     {workspace.averageRating && (
                                         <div className="absolute top-2 right-2 flex items-center gap-1 bg-white/90 px-2 py-1 rounded-full text-sm">
                                             <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
@@ -67,10 +128,14 @@ export default function WorkspaceCarousel() {
                             </div>
 
                             <CardContent className="p-4 flex flex-col h-48">
-                                <h3 className="text-lg font-semibold line-clamp-2 mb-2">{workspace.name || "Unnamed Workspace"}</h3>
+                                <h3 className="text-lg font-semibold line-clamp-2 mb-2">
+                                    {workspace.name || "Unnamed Workspace"}
+                                </h3>
 
                                 {workspace.description && (
-                                    <p className="text-gray-600 text-sm line-clamp-2 mb-3">{workspace.description}</p>
+                                    <p className="text-gray-600 text-sm line-clamp-2 mb-3">
+                                        {workspace.description}
+                                    </p>
                                 )}
 
                                 {workspace.amenities && workspace.amenities.length > 0 && (
@@ -90,7 +155,10 @@ export default function WorkspaceCarousel() {
 
                                 <div className="flex items-center justify-between mt-auto pt-3 border-t">
                                     <span className="font-bold">$50/hr</span>
-                                    <Button onClick={() => router.push(`/workspace/${workspace._id || index}`)} size="sm">
+                                    <Button
+                                        onClick={() => router.push(`/workspace/${workspace._id || index}`)}
+                                        size="sm"
+                                    >
                                         View Details
                                     </Button>
                                 </div>

@@ -14,26 +14,23 @@ export function SearchBar() {
     const router = useRouter()
     const searchParams = useSearchParams()
 
-    // Initialize with current search params
     useEffect(() => {
         const currentQuery = searchParams.get("query")
         if (currentQuery) {
             setText(currentQuery)
+        } else {
+            setText("")
         }
     }, [searchParams])
 
     useEffect(() => {
         setIsLoading(true)
-        const timer = setTimeout(() => {
-            if (!query) {
-                router.push(`/`)
-            } else {
-                router.push(`/?query=${encodeURIComponent(query)}`)
-            }
-            setIsLoading(false)
-        }, 100)
-
-        return () => clearTimeout(timer)
+        if (!query) {
+            router.push(`/`)
+        } else {
+            router.push(`/?query=${encodeURIComponent(query)}`)
+        }
+        setIsLoading(false)
     }, [query, router])
 
     const handleClear = useCallback(() => {

@@ -1,7 +1,6 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import Heading from "@/components/common/Heading";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { IWorkspace } from "@/types/workspace";
@@ -10,11 +9,12 @@ import Spinner from "@/components/common/Spinner";
 import WorkspaceCard from "./WorkspaceCard";
 import LoadingSpinner from "@/components/common/Spinner";
 import WorkspaceCardSkeleton from "./WorkspaceCardSkeleton";
-// import Carousal from "./Carousal";
+import { Input } from "@/components/ui/input";
+import { useDebounce } from "use-debounce";
 
 const WorkingList = () => {
-  const searchParams = useSearchParams();
-  const query = searchParams.get("query") || "";
+  const [search, setSearch] = useState("");
+  const [query] = useDebounce(search, 500); // ← تأخير البحث
 
   const {
     workspaces,
@@ -22,45 +22,51 @@ const WorkingList = () => {
     hasMore,
     loading,
     loadMore,
-  } = useWorkspace(query);
+  } = useWorkspace(query); // ← الفلترة تتم هنا
 
   if (error) {
-    return <p className="text-red-500 text-center py-8">Error loading workspaces</p>;
+    return (
+      <p className="text-red-500 text-center py-8">
+        Error loading workspaces
+      </p>
+    );
   }
 
-  if (!workspaces) {
+  if (!workspaces && loading) {
     return <Spinner />;
   }
 
-  if (loading) {
+  if (workspaces.length === 0 && !error && !loading) {
+    return <WorkspaceCardSkeleton />;
   }
-  if (workspaces.length === 0 && !error) {
-    return <WorkspaceCardSkeleton />
-
-  }
-  // if (workspaces.length === 0 && !error) {
-  //   return (
-  //     <div className="text-center py-8">
-  //       <p className="text-gray-500">No workspaces found</p>
-  //     </div>
-  //   );
-  // }
 
   return (
     <div className="container mt-[60px] relative">
-      {/* <Heading>Near You</Heading>
-      <Carousal /> */}
+      {/* 🔍 Search Input */}
+      <div className="w-full max-w-[700px] mx-auto mb-6 px-4">
+        <Input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search by workspace name..."
+          className="w-full py-3 px-4 rounded-xl border-2 border-gray-200 focus:border-[#134B70] focus-visible:outline-none"
+        />
+      </div>
+
       <Heading>Explore Workspaces</Heading>
+
       <InfiniteScroll
         dataLength={workspaces.length}
         next={loadMore}
         hasMore={hasMore ?? false}
         loader={<LoadingSpinner />}
         scrollThreshold={0.8}
-        style={{ overflow: 'hidden' }}
+        style={{ overflow: "hidden" }}
         endMessage={
           <div className="text-center py-8">
-            <p className="text-gray-500">{"You've reached the end of the list!"}</p>
+            <p className="text-gray-500">
+              {"You've reached the end of the list!"}
+            </p>
           </div>
         }
       >

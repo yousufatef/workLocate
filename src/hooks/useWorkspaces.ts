@@ -52,7 +52,9 @@ const useWorkspace = (query: string = "") => {
     }, [fetchWorkspaces, loading, hasMore, page])
 
     useEffect(() => {
-        fetchWorkspaces(1) // Reset and load first page on mount or when `query` changes
+        setPage(1)
+        setHasMore(true)
+        fetchWorkspaces(1)
     }, [fetchWorkspaces])
 
     return {
