@@ -43,7 +43,9 @@ const WorkingList = () => {
   return (
     <div className="container mt-[60px] relative">
       {/* 🔍 Search Input */}
-      <div className="w-full max-w-[700px] mx-auto mb-6 px-4">
+
+      <Heading>Explore Workspaces</Heading>
+      <div className="w-full max-w-[700px] mb-6 ">
         <Input
           type="text"
           value={search}
@@ -52,8 +54,6 @@ const WorkingList = () => {
           className="w-full py-3 px-4 rounded-xl border-2 border-gray-200 focus:border-[#134B70] focus-visible:outline-none"
         />
       </div>
-
-      <Heading>Explore Workspaces</Heading>
 
       <InfiniteScroll
         dataLength={workspaces.length}

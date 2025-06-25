@@ -4,7 +4,7 @@ import Image from "next/image";
 
 function Hero() {
     return (
-        <div className="w-full relative flex flex-col justify-center items-center py-[150px] md:py-[200px] overflow-hidden">
+        <div className="w-full relative flex flex-col justify-center items-center py-[100px] md:py-[150px] overflow-hidden">
             {/* Background Image */}
             <Image
                 src="/assets/images/heroImage.jpg"

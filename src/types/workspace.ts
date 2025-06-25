@@ -9,6 +9,7 @@ export interface IWorkspace {
     amenities: string[],
     roomCounter: number,
     ownerId: string,
-    reviews: string[]
+    reviews: string[],
+    image: string,
 }
 
