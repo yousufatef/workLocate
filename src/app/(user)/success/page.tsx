@@ -1,7 +1,9 @@
-import LottieHandler from '@/components/common/LottieHandler'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React from 'react'
-
+const LottieHandler = dynamic(() => import("@/components/common/LottieHandler"), {
+    ssr: false,
+})
 const page = () => {
     return (
         <div className="container">
