@@ -16,6 +16,7 @@ import Image from "next/image"
 
 // Updated interface to match actual data structure
 interface IWorkspace {
+    _id: string
     name: string
     amenities: string[]
     averageRating: number
@@ -47,7 +48,7 @@ const getAmenityIcon = (amenity: string) => {
 function WorkspaceCard({ workspace }: { workspace: IWorkspace }) {
     return (
         <Card className="h-full hover:shadow-lg transition-shadow duration-200">
-            <Link href={`/workspace/`} className="px-2 pt-2">
+            <Link href={`/workspace/${workspace._id}`} className="px-2 pt-2">
                 <div className="relative aspect-video">
                     <Image
                         src={`${workspace?.image || "/assets/images/workNest.png"}`}
@@ -231,7 +232,7 @@ export default function WorkspaceCarousel() {
     // Error state
     if (error) {
         return (
-            <div className="container">
+            <div className="container mt-8">
                 <Card className="p-8">
                     <div className="flex flex-col items-center justify-center space-y-4 text-center">
                         <div className="rounded-full bg-red-100 p-3">
@@ -254,7 +255,7 @@ export default function WorkspaceCarousel() {
     // Empty state
     if (workspaces.length === 0) {
         return (
-            <div className="container">
+            <div className="container mt-8">
                 <Card className="p-8">
                     <div className="flex flex-col items-center justify-center space-y-4 text-center">
                         <div className="rounded-full bg-gray-100 p-3">

@@ -20,7 +20,7 @@ export interface IWorkspaceProp {
 
 export async function getAllWorkspaces({ query, limit = 6, page = 1 }: { query?: string; limit?: number; page?: number }): Promise<WorkspacesResponse> {
     try {
-        const res = await axiosInstance.get('/workspace/all', {
+        const res = await axiosInstance.get('/workspace/all/pagenation', {
             params: {
                 page,
                 query,
