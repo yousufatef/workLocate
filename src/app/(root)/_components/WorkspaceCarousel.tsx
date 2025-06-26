@@ -208,7 +208,7 @@ export default function WorkspaceCarousel() {
     // Loading state
     if (loading) {
         return (
-            <div className="container">
+            <div className="container mt-8">
                 <div className="flex items-center justify-center mb-4">
                     <div className="flex items-center space-x-2 text-muted-foreground">
                         <RefreshCw className="h-4 w-4 animate-spin" />

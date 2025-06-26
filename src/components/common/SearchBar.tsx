@@ -54,8 +54,8 @@ export function SearchBar() {
     )
 
     return (
-        <div className="w-full max-w-[90vw] sm:max-w-[80vw] md:max-w-[600px] lg:max-w-[700px] mx-auto mb-4 px-2 sm:px-4">
-            <div className="flex flex-col md:flex-row gap-2 md:gap-3 bg-white/95 backdrop-blur-sm rounded-2xl p-3 shadow-lg hover:shadow-xl border border-white/20 transition-all duration-300 hover:bg-white focus-within:bg-white focus-within:shadow-xl">
+        <div className="w-full max-w-[90vw] sm:max-w-[80vw] md:max-w-[600px] lg:max-w-[600px]  mb-4">
+            <div className="flex flex-col md:flex-row gap-2 md:gap-3 bg-white/95 p-1 backdrop-blur-sm rounded-xl  shadow-sm hover:shadow-xl border border-white/20 transition-all duration-300 hover:bg-white focus-within:bg-white focus-within:shadow-xl">
                 <div className="flex-1 min-w-0">
                     <div className="relative group">
                         <Search className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-gray-500 h-4 w-4 sm:h-5 sm:w-5 transition-colors group-focus-within:text-[#134B70]" />
@@ -65,7 +65,7 @@ export function SearchBar() {
                             onChange={(e) => setText(e.target.value)}
                             onKeyDown={handleKeyDown}
                             placeholder="Search by workspace name..."
-                            className="w-full pl-8 sm:pl-10 pr-8 sm:pr-10 py-2 sm:py-3 bg-transparent text-gray-800 placeholder:text-gray-500 border-2 border-gray-200 rounded-xl outline-none focus-visible:ring-0 focus-visible:border-[#134B70] focus-visible:ring-[#134B70]/10 focus-visible:ring-offset-1 transition-all duration-200 text-sm sm:text-base"
+                            className="w-full pl-8 sm:pl-10 pr-8 sm:pr-10 py-2 sm:py-3 bg-transparent text-gray-800 placeholder:text-gray-500 border-1 border-gray-200 rounded-xl outline-none focus-visible:ring-0 focus-visible:border-[#134B70] focus-visible:ring-[#134B70]/10 focus-visible:ring-offset-1 transition-all duration-200 text-sm sm:text-base"
                             aria-label="Search workspaces"
                         />
                         <div className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center gap-1">

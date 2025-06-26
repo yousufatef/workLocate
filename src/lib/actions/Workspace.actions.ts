@@ -18,7 +18,6 @@ export interface IWorkspaceProp {
     adminId?: string;
 }
 
-
 export async function getAllWorkspaces({ query, limit = 6, page = 1 }: { query?: string; limit?: number; page?: number }): Promise<WorkspacesResponse> {
     try {
         const res = await axiosInstance.get('/workspace/all', {
