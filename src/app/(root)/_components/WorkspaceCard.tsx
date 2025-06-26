@@ -13,7 +13,7 @@ const WorkspaceCard = ({ workspace }: { workspace: IWorkspace }) => {
             <Link href={`/workspace/${workspace?._id}`} className="px-2 pt-2">
                 <div className="relative aspect-video">
                     <Image
-                        src="/assets/images/workNest.png"
+                        src={`${workspace?.image || "/assets/images/workNest.png"}`}
                         className="object-cover"
                         alt={`${workspace?.name} workspace`}
                         fill

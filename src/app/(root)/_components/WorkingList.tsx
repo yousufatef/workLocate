@@ -1,6 +1,5 @@
 "use client";
 
-import React, { useState } from "react";
 import Heading from "@/components/common/Heading";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { IWorkspace } from "@/types/workspace";
@@ -9,12 +8,12 @@ import Spinner from "@/components/common/Spinner";
 import WorkspaceCard from "./WorkspaceCard";
 import LoadingSpinner from "@/components/common/Spinner";
 import WorkspaceCardSkeleton from "./WorkspaceCardSkeleton";
-import { Input } from "@/components/ui/input";
-import { useDebounce } from "use-debounce";
+import { SearchBar } from "@/components/common/SearchBar";
+import { useSearchParams } from "next/navigation";
 
 const WorkingList = () => {
-  const [search, setSearch] = useState("");
-  const [query] = useDebounce(search, 500); // ← تأخير البحث
+  const searchParams = useSearchParams();
+  const query = searchParams.get("query") || "";
 
   const {
     workspaces,
@@ -22,7 +21,7 @@ const WorkingList = () => {
     hasMore,
     loading,
     loadMore,
-  } = useWorkspace(query); // ← الفلترة تتم هنا
+  } = useWorkspace(query); 
 
   if (error) {
     return (
@@ -42,18 +41,8 @@ const WorkingList = () => {
 
   return (
     <div className="container mt-[60px] relative">
-      {/* 🔍 Search Input */}
-
       <Heading>Explore Workspaces</Heading>
-      <div className="w-full max-w-[700px] mb-6 ">
-        <Input
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search by workspace name..."
-          className="w-full py-3 px-4 rounded-xl border-2 border-gray-200 focus:border-[#134B70] focus-visible:outline-none"
-        />
-      </div>
+      <SearchBar />
 
       <InfiniteScroll
         dataLength={workspaces.length}

@@ -11,6 +11,8 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { MapPin, RefreshCw, Wifi, Coffee, Printer, Snowflake, Star } from "lucide-react"
 import Autoplay from "embla-carousel-autoplay"
 import Heading from "@/components/common/Heading"
+import Link from "next/link"
+import Image from "next/image"
 
 // Updated interface to match actual data structure
 interface IWorkspace {
@@ -21,6 +23,7 @@ interface IWorkspace {
     longitude: number
     amenities_count: number
     distance: number
+    image?: string
 }
 
 // Default location (Cairo, Egypt)
@@ -44,11 +47,17 @@ const getAmenityIcon = (amenity: string) => {
 function WorkspaceCard({ workspace }: { workspace: IWorkspace }) {
     return (
         <Card className="h-full hover:shadow-lg transition-shadow duration-200">
-            <CardContent className="p-4">
-                <div className="aspect-video bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg mb-3 overflow-hidden flex items-center justify-center">
-                    <MapPin className="h-8 w-8 text-muted-foreground" />
+            <Link href={`/workspace/`} className="px-2 pt-2">
+                <div className="relative aspect-video">
+                    <Image
+                        src={`${workspace?.image || "/assets/images/workNest.png"}`}
+                        className="object-cover"
+                        alt={`${workspace?.name} workspace`}
+                        fill
+                    />
                 </div>
-
+            </Link>
+            <CardContent className="p-4">
                 <h3 className="font-semibold text-lg mb-2 line-clamp-2">{workspace.name}</h3>
 
                 {/* Rating and Distance */}
