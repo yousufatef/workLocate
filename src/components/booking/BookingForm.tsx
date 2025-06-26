@@ -85,7 +85,7 @@ export function BookingForm({ room }: BookingFormProps) {
             })
             console.log("Booking response:", response.data);
             toast.success("Room booked successfully!")
-            // router.push(`/success`)
+            router.push(`/my-bookings`)
 
         } catch (err) {
             console.error(err)

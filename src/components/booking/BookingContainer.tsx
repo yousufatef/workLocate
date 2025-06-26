@@ -29,11 +29,6 @@ export function BookingContainer({ roomId }: BookingContainerProps) {
                 setLoading(true)
                 setError(null)
 
-                // Replace with your actual room details API endpoint
-                // const response = await fetch(`https://worklocate-315a35b40e37.herokuapp.com/api/room/${roomId}`)
-
-                // Mock data for now - you'll need to replace this with actual API call
-                // For demo purposes, I'll use the room data structure you provided
                 const mockRoom: Room = {
                     _id: roomId,
                     name: "Abshire, Kling and Schaefer Workspace - Room 1",
