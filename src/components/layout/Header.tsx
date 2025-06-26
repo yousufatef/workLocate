@@ -10,9 +10,9 @@ import { ModeToggle } from "./ModeToggle";
 
 const Header = () => {
     const { user } = useUser();
-    const [open, setOpen] = useState(false); // ✅ state to control Sheet
+    const [open, setOpen] = useState(false);
 
-    const closeSheet = () => setOpen(false); // ✅ function to close it
+    const closeSheet = () => setOpen(false);
 
     return (
         <header className="sticky top-0 z-40 border-b bg-background">
@@ -55,7 +55,7 @@ const Header = () => {
                                             <Calendar className="h-6 w-6" />
                                             <span>Dashboard</span>
                                         </Link>
-                                    ) : (user && user.publicMetadata && user.publicMetadata.role === "user") ? (
+                                    ) : (user && user.publicMetadata && user.publicMetadata.role === "customer") ? (
                                         <Link href="/my-bookings" onClick={closeSheet} className="flex items-center gap-2 text-muted-foreground hover:text-foreground text-xl font-semibold mb-6">
                                             <Calendar className="h-6 w-6" />
                                             <span>My Bookings</span>
@@ -87,9 +87,11 @@ const Header = () => {
                     <Link href="/about" className="text-sm font-medium text-muted-foreground hover:text-foreground">About</Link>
                     {(user && user.publicMetadata && (user.publicMetadata.role === "admin" || user.publicMetadata.role === "owner")) ? (
                         <Link href="/dashboard" className="text-sm font-medium text-muted-foreground hover:text-foreground">Dashboard</Link>
-                    ) : (
+
+                    ) : (user && user.publicMetadata && user.publicMetadata.role === "customer") ? (
                         <Link href="/my-bookings" className="text-sm font-medium text-muted-foreground hover:text-foreground">My Bookings</Link>
-                    )}
+
+                    ) : null}
                     <Link href="/contact" className="text-sm font-medium text-muted-foreground hover:text-foreground">Contact US</Link>
                 </nav>
 
