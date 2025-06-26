@@ -1,61 +1,61 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { Input } from "@/components/ui/input"
-import { Search, X, Loader2 } from "lucide-react"
-import { useRouter, useSearchParams } from "next/navigation"
-import { useEffect, useState, useCallback } from "react"
-import { useDebounce } from "use-debounce"
+import type React from "react";
+import { Input } from "@/components/ui/input";
+import { Search, X, Loader2 } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState, useCallback } from "react";
+import { useDebounce } from "use-debounce";
 
 export function SearchBar() {
-    const [text, setText] = useState("")
-    const [query] = useDebounce(text, 500)
-    const [isLoading, setIsLoading] = useState(false)
-    const router = useRouter()
-    const searchParams = useSearchParams()
+    const [text, setText] = useState("");
+    const [query] = useDebounce(text, 500);
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
+    const searchParams = useSearchParams();
 
     useEffect(() => {
-        const currentQuery = searchParams.get("query")
+        const currentQuery = searchParams.get("query");
         if (currentQuery) {
-            setText(currentQuery)
+            setText(currentQuery);
         } else {
-            setText("")
+            setText("");
         }
-    }, [searchParams])
+    }, [searchParams]);
 
     useEffect(() => {
-        setIsLoading(true)
+        setIsLoading(true);
         if (!query) {
-            router.push(`/`)
+            router.push("/", { scroll: false });
         } else {
-            router.push(`/?query=${encodeURIComponent(query)}`)
+            router.push(`/?query=${encodeURIComponent(query)}`, { scroll: false });
         }
-        setIsLoading(false)
-    }, [query, router])
+        setIsLoading(false);
+    }, [query, router]);
 
     const handleClear = useCallback(() => {
-        setText("")
-        router.push(`/`)
-    }, [router])
+        setText("");
+        router.push("/", { scroll: false });
+    }, [router]);
 
     const handleSearch = useCallback(() => {
         if (text.trim()) {
-            router.push(`/?query=${encodeURIComponent(text.trim())}`)
+            router.push(`/?query=${encodeURIComponent(text.trim())}`, { scroll: false });
         }
-    }, [text, router])
+    }, [text, router]);
 
     const handleKeyDown = useCallback(
         (e: React.KeyboardEvent) => {
             if (e.key === "Enter") {
-                handleSearch()
+                handleSearch();
             }
         },
-        [handleSearch],
-    )
+        [handleSearch]
+    );
 
     return (
-        <div className="w-full max-w-[90vw] sm:max-w-[80vw] md:max-w-[600px] lg:max-w-[600px]  mb-4">
-            <div className="flex flex-col md:flex-row gap-2 md:gap-3 bg-white/95 p-1 backdrop-blur-sm rounded-xl  shadow-sm hover:shadow-xl border border-white/20 transition-all duration-300 hover:bg-white focus-within:bg-white focus-within:shadow-xl">
+        <div className="w-full max-w-[90vw] sm:max-w-[80vw] md:max-w-[600px] lg:max-w-[600px] mb-4">
+            <div className="flex flex-col md:flex-row gap-2 md:gap-3 bg-white/95 p-1 backdrop-blur-sm rounded-xl shadow-sm hover:shadow-xl border border-white/20 transition-all duration-300 hover:bg-white focus-within:bg-white focus-within:shadow-xl">
                 <div className="flex-1 min-w-0">
                     <div className="relative group">
                         <Search className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-gray-500 h-4 w-4 sm:h-5 sm:w-5 transition-colors group-focus-within:text-[#134B70]" />
@@ -86,5 +86,5 @@ export function SearchBar() {
                 </div>
             </div>
         </div>
-    )
+    );
 }

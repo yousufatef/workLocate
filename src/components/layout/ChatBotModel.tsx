@@ -73,7 +73,7 @@ const ChatBotModal = () => {
                                 <div className="flex items-center justify-center h-full text-muted-foreground text-center">
                                     <div>
                                         <Bot className="w-12 h-12 mx-auto mb-2 text-muted-foreground/50" />
-                                        <p>كيف يمكنني مساعدتك اليوم؟</p>
+                                        <p>How can I assist you today?</p>
                                     </div>
                                 </div>
                             ) : (
@@ -121,7 +121,7 @@ const ChatBotModal = () => {
                                 value={input}
                                 onChange={handleInputChange}
                                 onKeyDown={handleKeyDown}
-                                placeholder="اكتب رسالتك..."
+                                placeholder="Write your message..."
                                 disabled={isLoading}
                                 className="flex-1"
                             />

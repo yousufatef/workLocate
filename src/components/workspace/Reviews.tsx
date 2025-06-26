@@ -24,21 +24,7 @@ const Reviews = ({ reviews }: ReviewsProps) => {
                         {reviews.map((review, index) => (
                             <CarouselItem className="sm:basic-1 md:basis-1/2 lg:basis-1/3" key={index}>
                                 <Card className="p-4 space-y-3">
-                                    <div className="flex items-center gap-3">
-                                        <div className="h-10 w-10 rounded-full bg-gray-200 overflow-hidden relative">
-                                            <img
-                                                src="/person.png"
-                                                alt="User avatar"
-                                                className="object-cover w-full h-full"
-                                            />
-                                        </div>
-                                        <div>
-                                            <p className="font-medium">{review.name || "Anonymous"}</p>
-                                            <p className="text-xs text-gray-500">{review.date || "Just now"}</p>
-                                        </div>
-                                    </div>
-                                    <CardContent className="h-56 flex flex-col space-y-2">
-                                        <h4 className="font-semibold text-[#024E68]">Amazing Workspace!</h4>
+                                    <CardContent className="flex flex-col space-y-2">
                                         <div className="flex">
                                             <StarRating rate={review.rating} />
                                         </div>

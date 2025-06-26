@@ -18,7 +18,7 @@ const Workspace = async ({ params }: { params: Promise<{ id: string }> }) => {
                     <h1 className="text-3xl font-bold text-primary">{workingSpace.name}</h1>
                     <div className="flex items-center gap-2 mb-2">
                         <MapPin className="h-5 w-5 text-primary" />
-                        <span>8th October City Giza, Egypt</span>
+                        <span>{workingSpace.address}</span>
                     </div>
                 </div>
                 <div className="flex flex-col justify-center items-center gap-2">
