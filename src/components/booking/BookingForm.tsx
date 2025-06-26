@@ -69,8 +69,8 @@ export function BookingForm({ room }: BookingFormProps) {
         setIsSubmitting(true)
 
         try {
-            const duration = calculateDuration()
-            const totalPrice = calculateTotalPrice()
+            const duration = calculateDuration();
+            const totalPrice = calculateTotalPrice();
 
             const response = await axios.post(`https://worklocate-315a35b40e37.herokuapp.com/api/reservation/reserve`, {
                 seatsBooked: formData.attendees,
@@ -82,17 +82,23 @@ export function BookingForm({ room }: BookingFormProps) {
                 endTime: formData.endTime,
                 duration,
                 totalPrice,
-            })
+            });
+
             console.log("Booking response:", response.data);
-            toast.success("Room booked successfully!")
-            router.push(`/my-bookings`)
+            toast.success("Room booked successfully!");
+
+            // Wait 2 seconds before redirecting
+            setTimeout(() => {
+                router.push(`/my-bookings`);
+            }, 2000);
 
         } catch (err) {
-            console.error(err)
-            toast.error("Booking failed.")
+            console.error(err);
+            toast.error("Booking failed.");
         } finally {
-            setIsSubmitting(false)
+            setIsSubmitting(false);
         }
+
     }
 
     const isFormValid =
